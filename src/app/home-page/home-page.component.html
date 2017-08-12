@@ -1,0 +1,22 @@
+<div class="container">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <h1>Phi Phenomenon</h1>
+      </div>
+      <div *ngIf="isLoggedIn">
+        <p class="navbar-text navbar-right">Logged In: {{user_displayName}} ({{user_email}})<p>
+      </div>
+      <div *ngIf="!isLoggedIn">
+        <p class="navbar-text navbar-right">Logged Out</p>
+      </div>
+    </div>
+  </nav>
+  <div class="row">
+    <div class="jumbotron">
+      <h1>Welcome</h1>
+      <p>You should only be able to see that page when you're logged in!</p>
+      <p><button class="btn btn-default" (click)="logout()">Logout</button></p>
+    </div>
+  </div>
+</div>
