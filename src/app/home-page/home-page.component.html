@@ -1,22 +1,30 @@
 <div class="container">
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <h1>Phi Phenomenon</h1>
+  <div class="user-container">
+    <p>{{user_displayName}} ({{user_email}})<p>
+    <p><button (click)="logout()">Logout</button></p>
+  </div>
+  <div class="page-container">
+    <fieldset>
+      <form action="">
+        <input type="text" class="ghost-input" placeholder="I wanna see a new movie"
+         onfocus="this.placeholder = ''" onblur="this.placeholder = 'No movies ?'" #movieTitle (blur)="addMovieTitle(movieTitle.value)" required>
+         <div class="marks-container">
+          <div *ngFor="let mark of marks" class="mark-div" (click)="selectMark(mark)">
+            {{ mark }}
+          </div>
+        </div>
+        <button (click)="saveMovie()" class="ghost-button">Save</button>
+      </form>
+    </fieldset>
+    <div class="movies-container">
+      <div *ngFor="let movie of movies | async" class="movie-div">
+        <div class="movie-poster" style="width: 488px; height: 633px;">
+          <img src="{{movie.posterUrl}}">
+        </div>
+        <div class="movie-info">
+          {{ movie.title }} ~ {{ movie.mark }}
+        </div>
       </div>
-      <div *ngIf="isLoggedIn">
-        <p class="navbar-text navbar-right">Logged In: {{user_displayName}} ({{user_email}})<p>
-      </div>
-      <div *ngIf="!isLoggedIn">
-        <p class="navbar-text navbar-right">Logged Out</p>
-      </div>
-    </div>
-  </nav>
-  <div class="row">
-    <div class="jumbotron">
-      <h1>Welcome</h1>
-      <p>You should only be able to see that page when you're logged in!</p>
-      <p><button class="btn btn-default" (click)="logout()">Logout</button></p>
     </div>
   </div>
 </div>
