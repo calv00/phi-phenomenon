@@ -4,7 +4,7 @@
 
 Personal fun project to save a movie list with marks.
 Deployed on Firebase Hosting.
-Available [Here](phi-phenomenon-f046e.firebaseapp.com)
+Available [Here](https://phi-phenomenon-f046e.firebaseapp.com)
 
 ## 'Phi Phenomenon' ?
 
