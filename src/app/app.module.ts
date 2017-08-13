@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { MdButtonModule, MdIconModule, MdInputModule } from '@angular/material';
 
 import { AuthService } from './providers/auth.service';
 import { MovieService } from './providers/movie.service';
@@ -40,6 +41,9 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    MdButtonModule,
+    MdIconModule,
+    MdInputModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,

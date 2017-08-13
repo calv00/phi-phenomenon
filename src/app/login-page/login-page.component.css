@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.span-up {
+    flex: 1;
+}
+
+.span-down {
+    flex: 1;
+}
+
+button {
+    flex: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+button md-icon {
+    color: white;
+}

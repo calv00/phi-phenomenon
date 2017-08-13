@@ -26,6 +26,7 @@ export class HomePageComponent implements OnInit {
 
   private user_displayName: String;
   private user_email: String;
+  private user_photoURL: String;
   private movies: FirebaseListObservable<any[]>;
   private movieTitle: string = '';
   private marks: Number[] = [1,2,3,4,5,6,7,8,9,10];
@@ -46,7 +47,7 @@ export class HomePageComponent implements OnInit {
           this.user_email = '';
           this.router.navigate(['login']);
         } else {
-          
+          this.user_photoURL = auth.photoURL;
           this.user_displayName = auth.displayName;
           this.user_email = auth.email;
         }
