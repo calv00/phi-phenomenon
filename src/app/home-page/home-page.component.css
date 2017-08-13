@@ -76,6 +76,21 @@ button md-icon {
     margin-bottom: 20px;
 }
 
+@media (max-width: 768px) {
+    .movies-container .movie-div {
+        height: 250.668px;
+        width: 167.112px;
+    }
+
+    .movie-flip.movie-back .back-title {
+        font-size: 1em;
+    }
+
+    .movie-flip.movie-back .back-mark {
+        font-size: 3em;
+    }
+}
+
 .movie-flip {
     border-radius: inherit;
     height: 100%;

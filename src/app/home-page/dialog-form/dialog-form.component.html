@@ -7,7 +7,7 @@
       <span class="span-left"></span>
       <div class="marks-container">
         <md-button-toggle-group #group="mdButtonToggleGroup">
-          <div *ngFor="let mark of marks">
+          <div *ngFor="let mark of marks" class="mark-div">
             <md-button-toggle value="{{mark}}" (click)="selectMark(mark)">
               {{ mark }}
             </md-button-toggle>

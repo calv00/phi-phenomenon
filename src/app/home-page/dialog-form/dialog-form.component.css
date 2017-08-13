@@ -2,8 +2,27 @@
     text-align: center;
 }
 
-.form-container input {
+@media (max-width: 768px) {
+    .puntuation-container .span-left {
+        display: none;
+        flex: none;
+    }
 
+    .puntuation-container .span-right {
+        display: none;
+        flex: none;
+    }
+
+    .puntuation-container .marks-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .marks-container md-button-toggle-group.mat-button-toggle-group {
+        max-width: 100%;
+        box-shadow: none;
+        margin: 2em;
+    }
 }
 
 .puntuation-container {
@@ -27,12 +46,9 @@
     justify-content: space-around;
 }
 
-.marks-container .mark-div {
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    background-color: lightseagreen;
-    font-size: 1.5em;
+.mark-div md-button-toggle.mat-button-toggle.mat-button-toggle-checked {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20%;
     color: white;
 }
 

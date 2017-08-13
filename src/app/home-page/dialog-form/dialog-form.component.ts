@@ -44,6 +44,7 @@ export class DialogFormComponent implements OnInit {
     };
     // Interacting with Observable/Promise
     movieObservable.push(movie);
+    this.dialogRef.close();
     },
   error => this.errorMessage = <any>error
     );
