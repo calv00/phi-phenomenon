@@ -1,28 +1,35 @@
-<div class="container">
-  <div class="user-container">
-    <p>{{user_displayName}} ({{user_email}})<p>
-    <p><button (click)="logout()">Logout</button></p>
+<div class="user-container">
+  <p>{{user_displayName}} ({{user_email}})<p>
+  <button (click)="logout()">Logout</button>
+</div>
+<div class="page-container">
+  <div class="form-container">
+    <input type="text" class="ghost-input" placeholder="I wanna see a new movie"
+      onfocus="this.placeholder = ''" onblur="this.placeholder = 'No movies ?'" #movieTitle (blur)="addMovieTitle(movieTitle.value)" required>
+    <div class="puntuation-container">
+      <span class="span-left"></span>
+      <div class="marks-container">
+        <div *ngFor="let mark of marks" class="mark-div" (click)="selectMark(mark)">
+          {{ mark }}
+        </div>
+      </div>
+      <span class="span-right"></span>
+    </div>
+    <div *ngIf="showSaveButton">
+      <button (click)="saveMovie()" class="save-button">Save</button>
+    </div>
   </div>
-  <div class="page-container">
-    <fieldset>
-      <form action="">
-        <input type="text" class="ghost-input" placeholder="I wanna see a new movie"
-         onfocus="this.placeholder = ''" onblur="this.placeholder = 'No movies ?'" #movieTitle (blur)="addMovieTitle(movieTitle.value)" required>
-         <div class="marks-container">
-          <div *ngFor="let mark of marks" class="mark-div" (click)="selectMark(mark)">
-            {{ mark }}
-          </div>
+  <div class="movies-container">
+    <div *ngFor="let movie of movies | async" (click)="toggleFlip()" [@flipState]="flip" class="movie-div">
+      <div class="movie-flip movie-front">
+        <img src="{{movie.posterUrl}}">
+      </div>
+      <div class="movie-flip movie-back">
+        <div class="back-title">
+          {{ movie.title }}
         </div>
-        <button (click)="saveMovie()" class="ghost-button">Save</button>
-      </form>
-    </fieldset>
-    <div class="movies-container">
-      <div *ngFor="let movie of movies | async" class="movie-div">
-        <div class="movie-poster" style="width: 488px; height: 633px;">
-          <img src="{{movie.posterUrl}}">
-        </div>
-        <div class="movie-info">
-          {{ movie.title }} ~ {{ movie.mark }}
+        <div class="back-mark">
+          {{ movie.mark }}
         </div>
       </div>
     </div>

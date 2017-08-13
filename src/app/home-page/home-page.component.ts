@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, trigger, state, style, transition, animate } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
@@ -8,7 +8,19 @@ import { MovieService } from '../providers/movie.service';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  styleUrls: ['./home-page.component.css'],
+  animations: [
+    trigger('flipState', [
+      state('active', style({
+        transform: 'rotateY(179.9deg)'
+      })),
+      state('inactive', style({
+        transform: 'rotateY(0)'
+      })),
+      transition('active => inactive', animate('500ms ease-out')),
+      transition('inactive => active', animate('500ms ease-in'))
+    ])
+  ]
 })
 export class HomePageComponent implements OnInit {
 
@@ -18,11 +30,9 @@ export class HomePageComponent implements OnInit {
   private movieTitle: string = '';
   private marks: Number[] = [1,2,3,4,5,6,7,8,9,10];
   private selectedMark: Number;
-
-  private movieApiTitle: string = '';
-  private movieApiPoster: string = '';
-
   private errorMessage: string;
+  private showSaveButton: boolean = false;
+  flip: string = 'inactive';
 
   constructor(public authService: AuthService,
      private movieService: MovieService,
@@ -55,6 +65,9 @@ export class HomePageComponent implements OnInit {
   }
   selectMark(mark: Number) {
     this.selectedMark = mark;
+    if (this.movieTitle !== '') {
+      this.showSaveButton = true;
+    }
   }
 
   saveMovie() {
@@ -69,9 +82,15 @@ export class HomePageComponent implements OnInit {
     };
     // Interacting with Observable/Promise
     movieObservable.push(movie);
+    this.movieTitle = '';
+    this.showSaveButton = false;
     },
   error => this.errorMessage = <any>error
     );
+  }
+
+  toggleFlip() {
+    this.flip = (this.flip == 'inactive') ? 'active' : 'inactive';
   }
 
 }
