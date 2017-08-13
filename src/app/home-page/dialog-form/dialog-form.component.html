@@ -1,0 +1,22 @@
+<div class="form-container">
+    <md-input-container>
+      <input mdInput type="text" class="ghost-input" placeholder="I wanna see a new movie"
+        onfocus="this.placeholder = ''" onblur="this.placeholder = 'No movies ?'" #movieTitle (blur)="addMovieTitle(movieTitle.value)">
+    </md-input-container>
+    <div class="puntuation-container">
+      <span class="span-left"></span>
+      <div class="marks-container">
+        <md-button-toggle-group #group="mdButtonToggleGroup">
+          <div *ngFor="let mark of marks">
+            <md-button-toggle value="{{mark}}" (click)="selectMark(mark)">
+              {{ mark }}
+            </md-button-toggle>
+          </div>
+        </md-button-toggle-group>
+      </div>
+      <span class="span-right"></span>
+    </div>
+    <button md-fab (click)="saveMovie()" class="save-button">
+      <md-icon>save</md-icon>
+    </button>
+</div>

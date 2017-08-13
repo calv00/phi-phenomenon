@@ -1,55 +1,52 @@
 .user-container {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
 }
 
-.user-container img {
+.span-left {
+    flex: 1;
+}
+
+.button-container {
+    flex: 1;
+    align-self: center;
+}
+
+.user-div {    
+    align-self: flex-end;
+    margin: 1em;
     height: 56px;
     width: 56px;
     border-radius: 50%;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    position: relative;
 }
 
-.page-container {
-
+.user-flip {
+    height: inherit;
+    width: inherit;
+    border-radius: inherit;
+    backface-visibility: hidden;
+    cursor: pointer;
+    user-select: none;
+    position: absolute;
+    user-select: none;
 }
 
-.form-container {
-    text-align: center;
+.user-front {
+    height: 100%;
+    width: auto;
 }
 
-.form-container input {
-
+.user-back {
+    transform: rotateY(179.9deg);
 }
 
-.puntuation-container {
-    margin-top: 1em;
-    display: flex;
-    justify-content: center;
-}
-
-.puntuation-container .span-left {
-    flex: 1;
-}
-
-.puntuation-container .span-right {
-    flex: 1;
-}
-
-.puntuation-container .marks-container {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.marks-container .mark-div {
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    background-color: lightseagreen;
-    font-size: 1.5em;
-    color: white;
+.user-container img {
+    height: inherit;
+    width: inherit;
+    border-radius: inherit;
 }
 
 button {
@@ -58,10 +55,6 @@ button {
 
 button md-icon {
     color: white;
-}
-
-.save-button {
-    
 }
 
 .movies-container {

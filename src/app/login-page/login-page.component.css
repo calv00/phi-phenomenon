@@ -1,18 +1,17 @@
 .container {
+    height: 100vh;
+    width: auto;
     display: flex;
     justify-content: center;
 }
 
-.span-up {
-    flex: 1;
-}
-
-.span-down {
-    flex: 1;
+.testing {
+    display: flex;
+    flex: column;
 }
 
 button {
-    flex: auto;
+    align-self: center;
     background-color: rgba(0, 0, 0, 0.5);
 }
 

@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { MdButtonModule, MdIconModule, MdInputModule } from '@angular/material';
+import { MdButtonModule, MdIconModule, MdInputModule, MdDialogModule, MdButtonToggleModule } from '@angular/material';
 
 import { AuthService } from './providers/auth.service';
 import { MovieService } from './providers/movie.service';
@@ -15,6 +15,7 @@ import { MovieService } from './providers/movie.service';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { DialogFormComponent } from './home-page/dialog-form/dialog-form.component';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyA-GZpLAZRgi8pFzN3CPhhgYwOImzbBqpo",
@@ -35,7 +36,11 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    DialogFormComponent
+  ],
+  entryComponents: [
+    DialogFormComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +49,8 @@ const routes: Routes = [
     MdButtonModule,
     MdIconModule,
     MdInputModule,
+    MdDialogModule,
+    MdButtonToggleModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,

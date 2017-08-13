@@ -1,30 +1,22 @@
 <div class="user-container">
-  <img src="{{user_photoURL}}">
-  <button md-fab (click)="logout()">
-    <md-icon>power_settings_new</md-icon>
-  </button>
-</div>
-<div class="page-container">
-  <div class="form-container">
-    <md-input-container>
-      <input mdInput type="text" class="ghost-input" placeholder="I wanna see a new movie"
-        onfocus="this.placeholder = ''" onblur="this.placeholder = 'No movies ?'" #movieTitle (blur)="addMovieTitle(movieTitle.value)" required>
-    </md-input-container>
-    <div class="puntuation-container">
-      <span class="span-left"></span>
-      <div class="marks-container">
-        <div *ngFor="let mark of marks" class="mark-div" (click)="selectMark(mark)">
-          {{ mark }}
-        </div>
-      </div>
-      <span class="span-right"></span>
+  <span class="span-left"></span>
+  <div class="button-container">
+    <button md-fab (click)="openDialogForm()">
+      <md-icon>create</md-icon>
+    </button>
+  </div>
+  <div class="user-div" (click)="toggleUserFlip()" [@flipUserState]="flipUser">
+    <div class="user-flip user-front">
+      <img src="{{user_photoURL}}">
     </div>
-    <div *ngIf="showSaveButton">
-      <button md-fab (click)="saveMovie()" class="save-button">
-        <md-icon>save</md-icon>
+    <div class="user-flip user-back">
+      <button md-fab (click)="logout()">
+        <md-icon>power_settings_new</md-icon>
       </button>
     </div>
   </div>
+</div>
+<div class="page-container">
   <div class="movies-container">
     <div *ngFor="let movie of movies | async" (click)="toggleFlip()" [@flipState]="flip" class="movie-div">
       <div class="movie-flip movie-front">
