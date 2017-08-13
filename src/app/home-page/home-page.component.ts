@@ -37,8 +37,8 @@ export class HomePageComponent implements OnInit {
 
   private user_displayName: String;
   private user_email: String;
-  private user_photoURL: String;
-  private movies: FirebaseListObservable<any[]>;
+  user_photoURL: String;
+  movies: FirebaseListObservable<any[]>;
   flip: string = 'inactive';
   flipUser: string = 'inactive';
 

@@ -12,7 +12,7 @@ import { MovieService } from '../../providers/movie.service';
 export class DialogFormComponent implements OnInit {
 
   private movieTitle: string = '';
-  private marks: Number[] = [1,2,3,4,5,6,7,8,9,10];
+  marks: Number[] = [1,2,3,4,5,6,7,8,9,10];
   private selectedMark: Number;
   private errorMessage: string;
 

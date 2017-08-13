@@ -9,6 +9,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MdButtonModule, MdIconModule, MdInputModule, MdDialogModule, MdButtonToggleModule } from '@angular/material';
 
+import { firebaseConfig } from '../environments/config';
+
 import { AuthService } from './providers/auth.service';
 import { MovieService } from './providers/movie.service';
 
@@ -16,16 +18,6 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { DialogFormComponent } from './home-page/dialog-form/dialog-form.component';
-
-export const firebaseConfig = {
-    apiKey: "AIzaSyA-GZpLAZRgi8pFzN3CPhhgYwOImzbBqpo",
-    authDomain: "phi-phenomenon-f046e.firebaseapp.com",
-    databaseURL: "https://phi-phenomenon-f046e.firebaseio.com",
-    projectId: "phi-phenomenon-f046e",
-    storageBucket: "phi-phenomenon-f046e.appspot.com",
-    messagingSenderId: "965576070593"
-  };
-
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
