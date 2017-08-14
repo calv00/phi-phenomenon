@@ -18,6 +18,13 @@ export class MovieService {
       .catch(this.handleError);
   }
 
+  getMovies(query: string): Observable<any[]> {
+    return this.http
+      .get(`${this.searchUrl}&query=${query}&page=1`, this.getHeaders)
+      .map(this.mapMovies)
+      .catch(this.handleError);
+  }
+
   private mapJson(res: Response) {
     let returnJson = {
       "title": '',
@@ -28,6 +35,15 @@ export class MovieService {
     returnJson.title = body.results[0].title;
     returnJson.poster = mapUrl.concat(body.results[0].poster_path);
     return returnJson;
+  }
+
+  private mapMovies(res: Response) {
+    let body = res.json();
+    let returnList = [];
+    body.results.forEach(element => {
+      returnList.push(element.title);
+    });
+    return returnList;
   }
 
   private getHeaders(){

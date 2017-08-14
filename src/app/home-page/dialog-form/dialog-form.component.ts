@@ -3,6 +3,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { MdDialogRef } from '@angular/material';
 
 import { MovieService } from '../../providers/movie.service';
+import { AuthService } from '../../providers/auth.service';
 
 @Component({
   selector: 'dialog-form',
@@ -11,6 +12,7 @@ import { MovieService } from '../../providers/movie.service';
 })
 export class DialogFormComponent implements OnInit {
 
+  private user_uid: string;
   private movieTitle: string = '';
   marks: Number[] = [1,2,3,4,5,6,7,8,9,10];
   private selectedMark: Number;
@@ -18,9 +20,20 @@ export class DialogFormComponent implements OnInit {
 
   constructor(
       public dialogRef: MdDialogRef<DialogFormComponent>,
+      public authService: AuthService,
       private db: AngularFireDatabase,
       private movieService: MovieService
-  ) { }
+  ) {
+    this.authService.user.subscribe(
+      (auth) => {
+        if (auth == null) {
+          this.user_uid = '';
+        } else {
+          this.user_uid = auth.uid;
+        }
+      }
+    );
+   }
 
   ngOnInit() {
   }
@@ -36,7 +49,8 @@ export class DialogFormComponent implements OnInit {
     this.movieService.getMovie(this.movieTitle)
   .subscribe(
     movieJson => {
-      const movieObservable = this.db.list('/movies');
+      let userPath = '/users/'.concat(this.user_uid);
+      const movieObservable = this.db.list(userPath);
     var movie = {
       title: movieJson.title,
       mark: this.selectedMark,
@@ -46,8 +60,9 @@ export class DialogFormComponent implements OnInit {
     movieObservable.push(movie);
     this.dialogRef.close();
     },
-  error => this.errorMessage = <any>error
-    );
+    error => this.errorMessage = <any>error
+  );
+    console.log(this.user_uid);
   }
 
 }

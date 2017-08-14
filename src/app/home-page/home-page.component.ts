@@ -39,7 +39,7 @@ export class HomePageComponent implements OnInit {
   private user_email: String;
   user_photoURL: String;
   movies: FirebaseListObservable<any[]>;
-  flip: string = 'inactive';
+  flip: string[] = ['inactive'];
   flipUser: string = 'inactive';
 
   constructor(
@@ -58,10 +58,11 @@ export class HomePageComponent implements OnInit {
           this.user_photoURL = auth.photoURL;
           this.user_displayName = auth.displayName;
           this.user_email = auth.email;
+          let userPath = '/users/'.concat(auth.uid);
+          this.movies = db.list(userPath);
         }
       }
     );
-    this.movies = db.list('movies');
   }
   ngOnInit() {
   }
@@ -79,8 +80,8 @@ export class HomePageComponent implements OnInit {
     this.flipUser = (this.flipUser == 'inactive') ? 'active' : 'inactive';
   }
 
-  toggleFlip() {
-    this.flip = (this.flip == 'inactive') ? 'active' : 'inactive';
+  toggleFlip(index: number) {
+    this.flip[index] = (this.flip[index] === undefined || this.flip[index] == 'inactive') ? 'active' : 'inactive';
     if (this.flipUser === 'active') this.flipUser = 'inactive';
   }
 

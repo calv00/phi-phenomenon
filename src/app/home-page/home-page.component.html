@@ -18,7 +18,7 @@
 </div>
 <div class="page-container">
   <div class="movies-container">
-    <div *ngFor="let movie of movies | async" (click)="toggleFlip()" [@flipState]="flip" class="movie-div">
+    <div #myMovie *ngFor="let movie of movies | async; let i = index" (click)="toggleFlip(i)" [@flipState]="flip[i]" class="movie-div">
       <div class="movie-flip movie-front">
         <img src="{{movie.posterUrl}}">
       </div>
