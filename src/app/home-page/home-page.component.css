@@ -89,6 +89,14 @@ button md-icon {
     .movie-flip.movie-back .back-mark {
         font-size: 3em;
     }
+
+    .movie-flip.movie-back .buttons-container-top {
+        margin-top: 1em;
+    }
+
+    .movie-flip.movie-back .buttons-container-bottom {
+        margin-bottom: 1em;
+    }
 }
 
 .movie-flip {
@@ -119,20 +127,46 @@ button md-icon {
     transform: rotateY(179.9deg);
     display: flex;
     flex-direction: column;
+    align-content: center;
+}
+
+.movie-back .buttons-container-top {
+    margin-top: 4em;
+    
+}
+
+.movie-back .buttons-container-bottom {
+    margin-bottom: 4em;
+}
+
+.buttons-container .edit-button {
+
+}
+
+.buttons-container .delete-button {
+    
+}
+
+.movie-back .words-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
-.movie-back .back-title{
+.words-container .back-title{
     color: white;
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
     font-size: 2em;
+    text-align: center;
 }
 
-.movie-back .back-mark{
+.words-container .back-mark{
     color: white;
     font-family: 'Roboto', sans-serif;
     font-size: 10em;
     font-weight: lighter;
     font-style: italic;
+    text-align: center; 
 }

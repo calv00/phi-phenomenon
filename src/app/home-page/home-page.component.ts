@@ -1,9 +1,11 @@
 import { Component, OnInit, trigger, state, style, transition, animate } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { MdDialog } from '@angular/material';
 
 import { DialogFormComponent } from './dialog-form/dialog-form.component';
+import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
+import { DialogRemoveComponent } from './dialog-remove/dialog-remove.component';
 import { AuthService } from '../providers/auth.service';
 
 @Component({
@@ -83,6 +85,20 @@ export class HomePageComponent implements OnInit {
   toggleFlip(index: number) {
     this.flip[index] = (this.flip[index] === undefined || this.flip[index] == 'inactive') ? 'active' : 'inactive';
     if (this.flipUser === 'active') this.flipUser = 'inactive';
+  }
+
+  editMovie(movie: any) {
+    let dialogRef = this.dialog.open(DialogUpdateComponent, { data: movie.title });
+    dialogRef.afterClosed().subscribe(result => {
+      this.movies.update(movie.$key, { mark: result });
+    });
+  }
+
+  deleteMovie(movie: any) {
+    let dialogRef = this.dialog.open(DialogRemoveComponent, { data: movie.title });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') this.movies.remove(movie.$key);
+    });
   }
 
 }

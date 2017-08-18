@@ -1,0 +1,9 @@
+<div md-dialog-content>{{data}} Rating:</div>
+<div md-dialog-actions>
+  <div *ngFor="let mark of marks" class="mark-div">
+    <button md-fab md-dialog-close={{mark}} color='primary'>
+      <md-icon>stars</md-icon>
+    </button>
+    {{ mark }}
+  </div>
+</div>

@@ -18,6 +18,8 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { DialogFormComponent } from './home-page/dialog-form/dialog-form.component';
+import { DialogUpdateComponent } from './home-page/dialog-update/dialog-update.component';
+import { DialogRemoveComponent } from './home-page/dialog-remove/dialog-remove.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -29,10 +31,14 @@ const routes: Routes = [
     AppComponent,
     LoginPageComponent,
     HomePageComponent,
-    DialogFormComponent
+    DialogFormComponent,
+    DialogUpdateComponent,
+    DialogRemoveComponent
   ],
   entryComponents: [
-    DialogFormComponent
+    DialogFormComponent,
+    DialogUpdateComponent,
+    DialogRemoveComponent
   ],
   imports: [
     BrowserModule,

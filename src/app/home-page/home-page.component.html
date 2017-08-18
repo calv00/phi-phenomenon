@@ -1,7 +1,7 @@
 <div class="user-container">
   <span class="span-left"></span>
   <div class="button-container">
-    <button md-fab (click)="openDialogForm()">
+    <button md-fab (click)="openDialogForm()" color='primary'>
       <md-icon>create</md-icon>
     </button>
   </div>
@@ -10,7 +10,7 @@
       <img src="{{user_photoURL}}">
     </div>
     <div class="user-flip user-back">
-      <button md-fab (click)="logout()">
+      <button md-fab (click)="logout()" color='primary'>
         <md-icon>power_settings_new</md-icon>
       </button>
     </div>
@@ -23,11 +23,23 @@
         <img src="{{movie.posterUrl}}">
       </div>
       <div class="movie-flip movie-back">
-        <div class="back-title">
-          {{ movie.title }}
+        <div class="buttons-container-top">
+          <button class="edit-button" md-fab (click)="editMovie(movie)" color='primary'>
+            <md-icon>movie_filter</md-icon>
+          </button>
         </div>
-        <div class="back-mark">
-          {{ movie.mark }}
+        <div class="words-container">
+          <div class="back-title">
+            {{ movie.title }}
+          </div>
+          <div class="back-mark">
+            {{ movie.mark }}
+          </div>
+        </div>
+        <div class="buttons-container-bottom">
+          <button class="delete-button" md-fab (click)="deleteMovie(movie)" color="warn">
+            <md-icon>delete</md-icon>
+          </button>
         </div>
       </div>
     </div>
