@@ -17,6 +17,9 @@ export class DialogFormComponent implements OnInit {
   marks: Number[] = [1,2,3,4,5,6,7,8,9,10];
   private selectedMark: Number;
   private errorMessage: string;
+  viewSearch: boolean = false;
+  movieList: any[];
+  selectedMovie: string;
 
   constructor(
       public dialogRef: MdDialogRef<DialogFormComponent>,
@@ -45,8 +48,23 @@ export class DialogFormComponent implements OnInit {
     this.selectedMark = mark;
   }
 
+  selectMovie(movieTitle: string) {
+    this.selectedMovie = movieTitle;
+  }
+
+  searchMovie() {
+    this.viewSearch = true;
+    this.movieService.getMovies(this.movieTitle)
+    .subscribe(
+      movies => {
+        this.movieList = movies;
+      },
+      error => this.errorMessage = <any>error
+    );
+  }
+
   saveMovie() {
-    this.movieService.getMovie(this.movieTitle)
+    this.movieService.getMovie(this.selectedMovie)
   .subscribe(
     movieJson => {
       let userPath = '/users/'.concat(this.user_uid);
@@ -71,7 +89,6 @@ export class DialogFormComponent implements OnInit {
     },
     error => this.errorMessage = <any>error
   );
-    console.log(this.user_uid);
   }
 
 }

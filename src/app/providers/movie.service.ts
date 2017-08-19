@@ -38,11 +38,31 @@ export class MovieService {
   }
 
   private mapMovies(res: Response) {
+    let mapUrl = 'http://image.tmdb.org/t/p/w92//'
     let body = res.json();
     let returnList = [];
-    body.results.forEach(element => {
-      returnList.push(element.title);
-    });
+    if (body.results.length < 9) {
+      body.results.forEach(element => {
+        let returnJson = {
+        "title": '',
+        "poster": ''
+        };
+        returnJson.title = element.title;
+        returnJson.poster = mapUrl.concat(element.poster_path);
+        returnList.push(returnJson);
+        });
+    }
+    else {
+      for (var _i = 0; _i < 9; _i++) {
+        let returnJson = {
+        "title": '',
+        "poster": ''
+        };
+        returnJson.title = body.results[_i].title;
+        returnJson.poster = mapUrl.concat(body.results[_i].poster_path);
+        returnList.push(returnJson);
+      }
+    }
     return returnList;
   }
 

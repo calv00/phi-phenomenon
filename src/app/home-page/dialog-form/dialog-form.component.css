@@ -25,6 +25,38 @@
     }
 }
 
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.search-container .movie-div {
+    display: flex;
+    flex-direction: row;
+    margin: 0.1em;
+    cursor: pointer;
+}
+
+.movie-div img{
+    border-radius: 15px;
+}
+
+.movie-selected {
+    margin-top: 1em;
+    font-family: 'Roboto', serif;
+    font-size: 1.5em;
+    color: #673ab7;
+    text-align: center;
+}
+
 .puntuation-container {
     margin: 1em;
     display: flex;
@@ -47,7 +79,7 @@
 }
 
 .mark-div md-button-toggle.mat-button-toggle.mat-button-toggle-checked {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #673ab7;
     border-radius: 20%;
     color: white;
 }
