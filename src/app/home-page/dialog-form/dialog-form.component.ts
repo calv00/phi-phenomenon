@@ -51,13 +51,22 @@ export class DialogFormComponent implements OnInit {
     movieJson => {
       let userPath = '/users/'.concat(this.user_uid);
       const movieObservable = this.db.list(userPath);
-    var movie = {
-      title: movieJson.title,
-      mark: this.selectedMark,
-      posterUrl: movieJson.poster
-    };
+      if (this.selectedMark === undefined) {
+        var pendingMmovie = {
+          title: movieJson.title,
+          posterUrl: movieJson.poster
+        };
+        movieObservable.push(pendingMmovie);
+      }
+      else {
+        var ratedMovie = {
+          title: movieJson.title,
+          mark: this.selectedMark,
+          posterUrl: movieJson.poster
+        };
+        movieObservable.push(ratedMovie);
+      }
     // Interacting with Observable/Promise
-    movieObservable.push(movie);
     this.dialogRef.close();
     },
     error => this.errorMessage = <any>error

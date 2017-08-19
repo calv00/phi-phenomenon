@@ -1,0 +1,11 @@
+.mat-dialog-content {
+    font-family: 'Roboto', serif;
+    font-size: 1.5em;
+    color: #673ab7;
+    text-align: center;
+}
+
+.mat-dialog-actions {
+    display: flex;
+    justify-content: space-around;
+}
