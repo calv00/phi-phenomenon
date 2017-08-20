@@ -23,6 +23,11 @@
         box-shadow: none;
         margin: 2em;
     }
+
+    .search-container {
+        overflow-y: auto;
+        max-height: 288px;
+    }
 }
 
 .search-bar {
@@ -90,8 +95,4 @@ button {
 
 button md-icon {
     color: white;
-}
-
-.save-button {
-    
 }

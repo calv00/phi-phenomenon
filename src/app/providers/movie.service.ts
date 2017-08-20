@@ -53,7 +53,7 @@ export class MovieService {
         });
     }
     else {
-      for (var _i = 0; _i < 9; _i++) {
+      for (var _i = 0; _i < 8; _i++) {
         let returnJson = {
         "title": '',
         "poster": ''
