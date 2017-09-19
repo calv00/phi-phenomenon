@@ -1,20 +1,33 @@
+.general-container {
+    height: 100%;
+    width: auto;
+}
+
 .user-container {
+    margin-top: 1em;
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    position: fixed;
+    top: 0;
+    z-index: 10;
 }
 
-.span-left {
-    flex: 1;
+.button-container-left {
+    
 }
 
-.button-container {
-    flex: 1;
-    align-self: center;
+.float-menu-container {
+    position: absolute;
+    margin-top: 0.5em;
+}
+
+.button-container-center {
+    
 }
 
 .user-div {    
-    align-self: flex-end;
-    margin: 1em;
     height: 56px;
     width: 56px;
     border-radius: 50%;
@@ -49,16 +62,12 @@
     border-radius: inherit;
 }
 
-button {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
 button md-icon {
     color: white;
 }
 
 .movies-container {
-    margin-top: 2em;
+    margin-top: 7%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -76,7 +85,23 @@ button md-icon {
     margin-bottom: 20px;
 }
 
+@media (max-width: 1024px) {
+    .movies-container {
+        margin-top: 10%;
+    }
+}
+
 @media (max-width: 768px) {
+    .movies-container {
+        margin-top: 15%;
+    }
+}
+
+@media (max-width: 425px) {
+    .movies-container {
+        margin-top: 25%;
+    }
+    
     .movies-container .movie-div {
         height: 250.668px;
         width: 167.112px;

@@ -1,22 +1,29 @@
-<div class="user-container">
-  <span class="span-left"></span>
-  <div class="button-container">
-    <button md-fab (click)="openDialogForm()" color='primary'>
-      <md-icon>create</md-icon>
-    </button>
-  </div>
-  <div class="user-div" (click)="toggleUserFlip()" [@flipUserState]="flipUser">
-    <div class="user-flip user-front">
-      <img src="{{user_photoURL}}">
+<div class="general-container">
+  <div class="user-container">
+    <div class="button-container-left">
+      <button md-fab (click)="showMenu=!showMenu" color='primary'>
+        <md-icon>menu</md-icon>
+      </button>
+      <div class="float-menu-container" *ngIf="showMenu">
+        <menu-options></menu-options>
+      </div>
     </div>
-    <div class="user-flip user-back">
-      <button md-fab (click)="logout()" color='primary'>
-        <md-icon>power_settings_new</md-icon>
+    <div class="button-container-center">
+      <button md-fab (click)="openDialogForm()" color='primary'>
+        <md-icon>create</md-icon>
       </button>
     </div>
+    <div class="user-div" (click)="toggleUserFlip()" [@flipUserState]="flipUser">
+      <div class="user-flip user-front">
+        <img src="{{user_photoURL}}">
+      </div>
+      <div class="user-flip user-back">
+        <button md-fab (click)="logout()" color='primary'>
+          <md-icon>power_settings_new</md-icon>
+        </button>
+      </div>
+    </div>
   </div>
-</div>
-<div class="page-container">
   <div class="movies-container">
     <div #myMovie *ngFor="let movie of movies | async; let i = index" (click)="toggleFlip(i)" [@flipState]="flip[i]" class="movie-div">
       <div class="movie-flip movie-front">
