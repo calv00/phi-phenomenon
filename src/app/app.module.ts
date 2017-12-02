@@ -8,11 +8,13 @@ import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MdButtonModule, MdIconModule, MdInputModule, MdDialogModule, MdButtonToggleModule } from '@angular/material';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { firebaseConfig } from '../environments/config';
 
 import { AuthService } from './providers/auth.service';
 import { MovieService } from './providers/movie.service';
+import { FirebaseMovieService } from './providers/firebase-movie.service';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -51,6 +53,7 @@ const routes: Routes = [
     MdInputModule,
     MdDialogModule,
     MdButtonToggleModule,
+    InfiniteScrollModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
@@ -59,7 +62,8 @@ const routes: Routes = [
   ],
   providers: [
     AuthService,
-    MovieService
+    MovieService,
+    FirebaseMovieService
   ],
   bootstrap: [AppComponent]
 })

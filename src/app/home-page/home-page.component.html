@@ -25,9 +25,9 @@
     </div>
   </div>
   <div class="movies-container">
-    <div #myMovie *ngFor="let movie of movies | async; let i = index" (click)="toggleFlip(i)" [@flipState]="flip[i]" class="movie-div">
+    <div #myMovie *ngFor="let firebaseMovie of firebaseMovies | async; let i = index" (click)="toggleFlip(i)" [@flipState]="flip[i]" class="movie-div">
       <div class="movie-flip movie-front">
-        <img src="{{movie.posterUrl}}">
+        <img src="{{firebaseMovie.posterUrl}}">
       </div>
       <div class="movie-flip movie-back">
         <div class="buttons-container-top">
@@ -37,10 +37,10 @@
         </div>
         <div class="words-container">
           <div class="back-title">
-            {{ movie.title }}
+            {{ firebaseMovie.title }}
           </div>
           <div class="back-mark">
-            {{ movie.mark }}
+            {{ firebaseMovie.mark }}
           </div>
         </div>
         <div class="buttons-container-bottom">
@@ -50,5 +50,34 @@
         </div>
       </div>
     </div>
+    <div
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="1000"
+      (scrolled)="onScroll()">
+    </div>
+    <!--<div *ngIf="!finished">
+    Loading more movies...
+    </div>
+    <div *ngIf="finished">
+      End of database... That's all folks!
+    </div>
+    <h1>Movies</h1>
+    <div *ngFor="let firebaseMovie of firebaseMovies | async">
+        <h2>{{ firebaseMovie?.title }}</h2>
+        <img [src]="firebaseMovie?.posterUrl" width="120px">
+    </div>
+    <div
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="1000"
+      (scrolled)="onScroll()">
+    </div>
+    <div *ngIf="!finished">
+    Loading more movies...
+    </div>
+    <div *ngIf="finished">
+      End of database... That's all folks!
+    </div>-->
   </div>
 </div>

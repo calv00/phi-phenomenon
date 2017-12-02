@@ -2,11 +2,16 @@ import { Component, OnInit, trigger, state, style, transition, animate } from '@
 import { Router } from '@angular/router';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { MdDialog } from '@angular/material';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/take';
+import * as _ from 'lodash';
 
 import { DialogFormComponent } from './dialog-form/dialog-form.component';
 import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
 import { DialogRemoveComponent } from './dialog-remove/dialog-remove.component';
 import { AuthService } from '../providers/auth.service';
+import { FirebaseMovieService } from '../providers/firebase-movie.service';
 
 @Component({
   selector: 'app-home-page',
@@ -43,10 +48,16 @@ export class HomePageComponent implements OnInit {
   movies: FirebaseListObservable<any[]>;
   flip: string[] = ['inactive'];
   flipUser: string = 'inactive';
+  userPath: string = '';
+  firebaseMovies = new BehaviorSubject([]);
+  batch = 8;         // size of each query
+  lastKey = '';      // key to offset next query from
+  finished = false;  // boolean when end of database is reached
 
   constructor(
      public dialog: MdDialog,
      public authService: AuthService,
+     private firebaseMovieService: FirebaseMovieService,
      private db: AngularFireDatabase,
      private router: Router) {
     this.authService.user.subscribe(
@@ -60,13 +71,40 @@ export class HomePageComponent implements OnInit {
           this.user_photoURL = auth.photoURL;
           this.user_displayName = auth.displayName;
           this.user_email = auth.email;
-          let userPath = '/users/'.concat(auth.uid);
-          this.movies = db.list(userPath);
+          this.userPath = '/users/'.concat(auth.uid);
+          //this.movies = db.list(userPath);
         }
       }
     );
   }
   ngOnInit() {
+    this.getMovies();
+  }
+
+  onScroll () {
+    console.log('scrolled!!');
+    this.getMovies();
+  }
+  private getMovies(key?) {
+    if (this.finished) return
+    this.firebaseMovieService
+        .getMovies(this.batch+1, this.userPath, this.lastKey)
+        .do(movies => {
+          console.log(movies);
+          /// set the lastKey in preparation for next query
+          this.lastKey = _.last(movies)['$key']
+          const newMovies = _.slice(movies, 0, this.batch)
+          /// Get current movies in BehaviorSubject
+          const currentMovies = this.firebaseMovies.getValue()
+          /// If data is identical, stop making queries
+          if (this.lastKey == _.last(newMovies)['$key']) {
+            this.finished = true
+          }
+          /// Concatenate new movies to current movies
+          this.firebaseMovies.next( _.concat(currentMovies, newMovies) )
+        })
+        .take(1)
+        .subscribe()
   }
 
   logout() {
