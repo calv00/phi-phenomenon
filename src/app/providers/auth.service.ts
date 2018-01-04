@@ -7,6 +7,7 @@ import * as firebase from 'firebase/app';
 export class AuthService {
 
   user: Observable<firebase.User>;
+  uid: String;
   constructor(private afAuth: AngularFireAuth) {
     this.user = afAuth.authState; // only triggered on sign-in/out (for old behavior use .idToken)
   }
@@ -16,5 +17,14 @@ export class AuthService {
   }
   logout() {
     this.afAuth.auth.signOut();
+    this.setUid('');
+  }
+
+  getUid() {
+    return this.uid;
+  }
+
+  setUid(authUID) {
+    this.uid = authUID;
   }
 }

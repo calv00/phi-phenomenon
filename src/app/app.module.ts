@@ -13,6 +13,7 @@ import { firebaseConfig } from '../environments/config';
 
 import { AuthService } from './providers/auth.service';
 import { MovieService } from './providers/movie.service';
+import { MoviesService } from './providers/movies.service';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -59,7 +60,8 @@ const routes: Routes = [
   ],
   providers: [
     AuthService,
-    MovieService
+    MovieService,
+    MoviesService
   ],
   bootstrap: [AppComponent]
 })

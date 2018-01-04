@@ -164,14 +164,6 @@ button md-icon {
     margin-bottom: 4em;
 }
 
-.buttons-container .edit-button {
-
-}
-
-.buttons-container .delete-button {
-    
-}
-
 .movie-back .words-container {
     flex: 1;
     display: flex;
@@ -194,4 +186,17 @@ button md-icon {
     font-weight: lighter;
     font-style: italic;
     text-align: center; 
+}
+
+.pagination-container {
+    text-align: center;
+    margin-bottom: 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pagination-container .pag-button {
+    margin-left: 2em;
+    margin-right: 2em;
 }

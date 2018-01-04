@@ -2,11 +2,13 @@ import { Component, OnInit, trigger, state, style, transition, animate } from '@
 import { Router } from '@angular/router';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { MdDialog } from '@angular/material';
+import * as _ from "lodash";
 
 import { DialogFormComponent } from './dialog-form/dialog-form.component';
 import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
 import { DialogRemoveComponent } from './dialog-remove/dialog-remove.component';
 import { AuthService } from '../providers/auth.service';
+import { MoviesService } from '../providers/movies.service';
 
 @Component({
   selector: 'app-home-page',
@@ -44,9 +46,15 @@ export class HomePageComponent implements OnInit {
   flip: string[] = ['inactive'];
   flipUser: string = 'inactive';
 
+  offset = 6;
+  nextKey: any;
+  prevKeys: any[] = [];
+  subscription: any;
+
   constructor(
      public dialog: MdDialog,
      public authService: AuthService,
+     public moviesService: MoviesService,
      private db: AngularFireDatabase,
      private router: Router) {
     this.authService.user.subscribe(
@@ -61,12 +69,33 @@ export class HomePageComponent implements OnInit {
           this.user_displayName = auth.displayName;
           this.user_email = auth.email;
           let userPath = '/users/'.concat(auth.uid);
-          this.movies = db.list(userPath);
+          //this.movies = db.list(userPath);
+          this.authService.setUid(auth.uid);
+          this.getMovies(auth.uid)
         }
       }
     );
   }
   ngOnInit() {
+  }
+
+  nextPage() {
+    this.prevKeys.push(_.first(this.movies)['$key']);
+    this.getMovies(this.authService.getUid(), this.nextKey);
+  }
+
+  prevPage() {
+    const prevKey = _.last(this.prevKeys);
+    this.prevKeys = _.dropRight(this.prevKeys);
+    this.getMovies(this.authService.getUid(), prevKey);
+  }
+
+  private getMovies(authUID, key?) {
+    this.subscription = this.subscription = this.moviesService.getMovies(authUID, this.offset, key)
+                        .subscribe(movies => {
+                          this.movies = _.slice(movies, 0, this.offset);
+                          this.nextKey = _.get(movies[this.offset], '$key');
+                        });
   }
 
   logout() {
