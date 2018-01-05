@@ -1,10 +1,10 @@
 <div class="general-container">
   <div class="user-container">
     <div class="button-container-left">
-      <button md-fab (click)="showMenu=!showMenu" color='primary'>
+      <button md-fab (click)="showMenu()" color='primary'>
         <md-icon>menu</md-icon>
       </button>
-      <div class="float-menu-container" *ngIf="showMenu">
+      <div class="float-menu-container" *ngIf="menuFlag">
         <menu-options></menu-options>
       </div>
     </div>

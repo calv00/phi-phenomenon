@@ -12,4 +12,8 @@ export class MenuOptionsComponent implements OnInit {
   ngOnInit() {
   }
 
+  openFloatMenu() {
+    console.log("Float menu click");
+  }
+
 }

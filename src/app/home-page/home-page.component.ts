@@ -45,6 +45,7 @@ export class HomePageComponent implements OnInit {
   movies: FirebaseListObservable<any[]>;
   flip: string[] = ['inactive'];
   flipUser: string = 'inactive';
+  menuFlag: boolean = false;
 
   offset = 6;
   nextKey: any;
@@ -79,6 +80,10 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
   }
 
+  showMenu() {
+    this.menuFlag =! this.menuFlag;
+  }
+
   nextPage() {
     this.prevKeys.push(_.first(this.movies)['$key']);
     this.getMovies(this.authService.getUid(), this.nextKey);
@@ -92,10 +97,11 @@ export class HomePageComponent implements OnInit {
 
   private getMovies(authUID, key?) {
     this.subscription = this.subscription = this.moviesService.getMovies(authUID, this.offset, key)
-                        .subscribe(movies => {
-                          this.movies = _.slice(movies, 0, this.offset);
-                          this.nextKey = _.get(movies[this.offset], '$key');
-                        });
+      .subscribe(movies => {
+        this.movies = _.slice(movies, 0, this.offset);
+        this.nextKey = _.get(movies[this.offset], '$key');
+        console.log(this.movies);
+      });
   }
 
   logout() {
