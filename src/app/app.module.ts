@@ -22,6 +22,7 @@ import { DialogFormComponent } from './home-page/dialog-form/dialog-form.compone
 import { DialogUpdateComponent } from './home-page/dialog-update/dialog-update.component';
 import { DialogRemoveComponent } from './home-page/dialog-remove/dialog-remove.component';
 import { MenuOptionsComponent } from './home-page/menu-options/menu-options.component';
+import { SortMenuComponent } from './home-page/sort-menu/sort-menu.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -36,7 +37,8 @@ const routes: Routes = [
     DialogFormComponent,
     DialogUpdateComponent,
     DialogRemoveComponent,
-    MenuOptionsComponent
+    MenuOptionsComponent,
+    SortMenuComponent
   ],
   entryComponents: [
     DialogFormComponent,

@@ -7,13 +7,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuOptionsComponent implements OnInit {
 
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  openFloatMenu() {
-    console.log("Float menu click");
+  searchMenuClick() {
+    console.log("Search menu click");
+  }
+
+  sortMenuClick() {
+    console.log("Sort menu click");
+  }
+
+  viewsMenuClick() {
+    console.log("Views menu click");
+  }
+
+  categoryMenuClick() {
+    console.log("Category menu click");
+  }
+
+  closeFloatMenu() {
+
   }
 
 }

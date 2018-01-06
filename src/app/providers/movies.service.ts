@@ -1,19 +1,45 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class MoviesService {
-  private user_displayName: String;
-  private user_email: String;
 
-  constructor(private db: AngularFireDatabase) { }
+  private limitNumber: number = 16;
+  private limit:BehaviorSubject<number> = new BehaviorSubject<number>(this.limitNumber);
 
-  getMovies(authUID, offset, startKey?): FirebaseListObservable<any> {
+  private childAttribute: string = '';
+
+  constructor(
+    private db: AngularFireDatabase
+  ) { }
+
+  setLimitNumber(limitNumber:number): void {
+    this.limitNumber = limitNumber;
+  }
+
+  getLimitNumber(): number {
+    return this.limitNumber;
+  }
+
+  setchildAttribute(childAttribute:string): void {
+    this.childAttribute = childAttribute;
+  }
+
+  getchildAttribute(): string {
+    return this.childAttribute;
+  }
+
+  showMore(): void {
+    this.limit.next(this.limit.getValue() + 8);
+  }
+
+  getMovies(authUID): FirebaseListObservable<any> {
+    console.log(this.limit.value);
     return this.db.list('/users/'.concat(authUID) , {
       query: {
-        orderByKey: true,
-        startAt: startKey,
-        limitToFirst: offset+1
+        orderByChild: this.childAttribute,
+        limitToFirst: this.limit.value
       }
     });
   }

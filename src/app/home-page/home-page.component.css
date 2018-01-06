@@ -66,8 +66,13 @@ button md-icon {
     color: white;
 }
 
-.movies-container {
+.sort-container {
     margin-top: 7%;
+    margin-bottom: 2em;
+    text-align: center;
+}
+
+.movies-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -86,20 +91,20 @@ button md-icon {
 }
 
 @media (max-width: 1024px) {
-    .movies-container {
-        margin-top: 10%;
+    .sort-container { 
+        margin-top: 10%
     }
 }
 
 @media (max-width: 768px) {
-    .movies-container {
-        margin-top: 15%;
+    .sort-container { 
+        margin-top: 15%
     }
 }
 
 @media (max-width: 425px) {
-    .movies-container {
-        margin-top: 25%;
+    .sort-container { 
+        margin-top: 25%
     }
     
     .movies-container .movie-div {
@@ -191,12 +196,17 @@ button md-icon {
 .pagination-container {
     text-align: center;
     margin-bottom: 2em;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    text-align: center;
 }
 
-.pagination-container .pag-button {
-    margin-left: 2em;
-    margin-right: 2em;
+.pagination-container button {
+    background-color: #673ab7;
+    color: white;
+    border-radius: 5%;
+}
+
+.pagination-container button:hover {
+    background-color: white;
+    color: #673ab7;
+    border-radius: 5%;
 }

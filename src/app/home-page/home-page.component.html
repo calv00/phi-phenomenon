@@ -24,6 +24,9 @@
       </div>
     </div>
   </div>
+  <div class="sort-container">
+    <sort-menu (sortEE)="sort($event)"></sort-menu>
+  </div>
   <div class="movies-container">
     <div #myMovie *ngFor="let movie of movies; let i = index" (click)="toggleFlip(i)" [@flipState]="flip[i]" class="movie-div">
       <div class="movie-flip movie-front">
@@ -52,11 +55,8 @@
     </div>
   </div>
   <div class="pagination-container">
-    <button class="pag-button" md-fab color="primary" (click)="prevPage()" [disabled]="!prevKeys?.length">
-      <md-icon>keyboard_arrow_left</md-icon>
-    </button>
-    <button class="pag-button" md-fab color="primary" (click)="nextPage()" [disabled]="!nextKey">
-        <md-icon>keyboard_arrow_right</md-icon>
+    <button class="pag-button" md-button color="primary" (click)="scroll()">
+      Load more
     </button>
   </div>
 </div>

@@ -7,14 +7,14 @@
     border-radius: 5%;
 }
 
-.menu-container button {
+.menu-container button.menu-button {
     font-size: 1em;
     color: #673ab7;
     padding: 0.5em;
     width: 100%;
 }
 
-.menu-container button:hover {
+.menu-container button.menu-button:hover {
     background-color: #673ab7;
     color: white;
     border-radius: 5%;

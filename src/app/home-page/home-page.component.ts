@@ -47,9 +47,6 @@ export class HomePageComponent implements OnInit {
   flipUser: string = 'inactive';
   menuFlag: boolean = false;
 
-  offset = 6;
-  nextKey: any;
-  prevKeys: any[] = [];
   subscription: any;
 
   constructor(
@@ -70,7 +67,6 @@ export class HomePageComponent implements OnInit {
           this.user_displayName = auth.displayName;
           this.user_email = auth.email;
           let userPath = '/users/'.concat(auth.uid);
-          //this.movies = db.list(userPath);
           this.authService.setUid(auth.uid);
           this.getMovies(auth.uid)
         }
@@ -84,22 +80,20 @@ export class HomePageComponent implements OnInit {
     this.menuFlag =! this.menuFlag;
   }
 
-  nextPage() {
-    this.prevKeys.push(_.first(this.movies)['$key']);
-    this.getMovies(this.authService.getUid(), this.nextKey);
+  sort(event) {
+    this.moviesService.setchildAttribute(event);
+    this.getMovies(this.authService.getUid());
   }
 
-  prevPage() {
-    const prevKey = _.last(this.prevKeys);
-    this.prevKeys = _.dropRight(this.prevKeys);
-    this.getMovies(this.authService.getUid(), prevKey);
+  scroll() {
+    this.moviesService.showMore();
+    this.getMovies(this.authService.getUid());
   }
 
-  private getMovies(authUID, key?) {
-    this.subscription = this.subscription = this.moviesService.getMovies(authUID, this.offset, key)
+  private getMovies(authUID) {
+    this.subscription = this.moviesService.getMovies(authUID)
       .subscribe(movies => {
-        this.movies = _.slice(movies, 0, this.offset);
-        this.nextKey = _.get(movies[this.offset], '$key');
+        this.movies = movies;
         console.log(this.movies);
       });
   }
