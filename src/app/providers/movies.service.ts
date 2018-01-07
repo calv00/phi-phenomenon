@@ -35,12 +35,21 @@ export class MoviesService {
   }
 
   getMovies(authUID): FirebaseListObservable<any> {
-    console.log(this.limit.value);
     return this.db.list('/users/'.concat(authUID) , {
       query: {
         orderByChild: this.childAttribute,
-        limitToFirst: this.limit.value
+        //limitToFirst: this.limit.value
       }
     });
+  }
+
+  getMoviesReversed(authUID): FirebaseListObservable<any> {
+    return this.db.list('/users/'.concat(authUID) , {
+      query: {
+        orderByChild: this.childAttribute,
+        //limitToFirst: this.limit.value
+      }
+    }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
+    
   }
 }

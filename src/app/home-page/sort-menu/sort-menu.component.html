@@ -1,37 +1,34 @@
 <div class="sort-menu">
     <div class="sort-button-div">
       <button md-button (click)="sortByTitle()" color='primary'>
-        
         Title
       </button>
-      <div class="arrow-upward-div" *ngIf="title-click-flag">
+      <div class="arrow-upward-div" *ngIf="titleAsc">
         <md-icon>arrow_upward</md-icon>
       </div>
-      <div class="arrow-downward-div" *ngIf="title-click-flag">
+      <div class="arrow-downward-div" *ngIf="titleDesc">
         <md-icon>arrow_downward</md-icon>
       </div>
     </div>
     <div class="sort-button-div">
       <button md-button (click)="sortByMark()" color='primary'>
-        
         Mark
       </button>
-      <div class="arrow-upward-div" *ngIf="mark-click-flag">
+      <div class="arrow-upward-div" *ngIf="markAsc">
           <md-icon>arrow_upward</md-icon>
       </div>
-      <div class="arrow-downward-div" *ngIf="mark-click-flag">
+      <div class="arrow-downward-div" *ngIf="markDesc">
         <md-icon>arrow_downward</md-icon>
       </div>
     </div>
     <div class="sort-button-div">
       <button md-button (click)="sortByTime()" color='primary'>
-        
         Time
       </button>
-      <div class="arrow-upward-div" *ngIf="time-click-flag">
+      <div class="arrow-upward-div" *ngIf="timeAsc">
           <md-icon>arrow_upward</md-icon>
       </div>
-      <div class="arrow-downward-div" *ngIf="time-click-flag">
+      <div class="arrow-downward-div" *ngIf="timeDesc">
         <md-icon>arrow_downward</md-icon>
       </div>
     </div>

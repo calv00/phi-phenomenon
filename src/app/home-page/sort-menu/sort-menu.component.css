@@ -17,10 +17,14 @@
 
 .sort-button-div .arrow-upward-div{
     color: white;
-    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .sort-button-div .arrow-downward-div{
     color: white;
-    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

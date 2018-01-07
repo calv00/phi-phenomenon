@@ -68,7 +68,7 @@ export class HomePageComponent implements OnInit {
           this.user_email = auth.email;
           let userPath = '/users/'.concat(auth.uid);
           this.authService.setUid(auth.uid);
-          this.getMovies(auth.uid)
+          this.getMoviesReversed(auth.uid)
         }
       }
     );
@@ -81,8 +81,13 @@ export class HomePageComponent implements OnInit {
   }
 
   sort(event) {
-    this.moviesService.setchildAttribute(event);
-    this.getMovies(this.authService.getUid());
+    this.moviesService.setchildAttribute(event['child']);
+    if (event['order'] == 'ASC') {
+      this.getMovies(this.authService.getUid());
+    }
+    else {
+      this.getMoviesReversed(this.authService.getUid());
+    }
   }
 
   scroll() {
@@ -94,7 +99,13 @@ export class HomePageComponent implements OnInit {
     this.subscription = this.moviesService.getMovies(authUID)
       .subscribe(movies => {
         this.movies = movies;
-        console.log(this.movies);
+      });
+  }
+
+  private getMoviesReversed(authUID) {
+    this.subscription = this.moviesService.getMoviesReversed(authUID)
+      .subscribe(movies => {
+        this.movies = movies;
       });
   }
 
