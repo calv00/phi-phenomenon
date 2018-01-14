@@ -9,6 +9,7 @@ export class MoviesService {
   private limit:BehaviorSubject<number> = new BehaviorSubject<number>(this.limitNumber);
 
   private childAttribute: string = '';
+  private movies: FirebaseListObservable<any[]>;
 
   constructor(
     private db: AngularFireDatabase
@@ -49,7 +50,43 @@ export class MoviesService {
         orderByChild: this.childAttribute,
         //limitToFirst: this.limit.value
       }
-    }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
-    
+    }).map((array) => array.reverse()) as FirebaseListObservable<any[]>; 
   }
+
+  updateMovie(authUID, movie, result) {
+    this.db.list('/users/'.concat(authUID)).update(movie.$key, { mark: result });
+  }
+
+  deleteMovie(authUID, movie) {
+    this.db.list('/users/'.concat(authUID)).remove(movie.$key);
+  }
+
+  /*
+  class MyComp {
+  questions: FirebaseListObservable<any[]>;
+  value: FirebaseObjectObservable<any>;
+  constructor(af: AngularFire) {
+    this.questions = af.database.list('/questions');
+    this.value = af.database.object('/value');
+  } 
+  addToList(item: any) {
+    this.questions.push(item);
+  }
+  removeItemFromList(key: string) {
+    this.questions.remove(key).then(_ => console.log('item deleted!'));
+  }
+  deleteEntireList() {
+    this.questions.remove().then(_ => console.log('deleted!'));
+  }
+  setValue(data: any) {
+    this.value.set(data).then(_ => console.log('set!'));
+  }
+  updateValue(data: any) {
+    this.value.update(data).then(_ => console.log('update!'));
+  }
+  deleteValue() {
+    this.value.remove().then(_ => console.log('deleted!'));
+  }
+}
+  */
 }

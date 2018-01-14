@@ -130,14 +130,14 @@ export class HomePageComponent implements OnInit {
   editMovie(movie: any) {
     let dialogRef = this.dialog.open(DialogUpdateComponent, { data: movie.title });
     dialogRef.afterClosed().subscribe(result => {
-      this.movies.update(movie.$key, { mark: result });
+      this.moviesService.updateMovie(this.authService.getUid(), movie, result);
     });
   }
 
   deleteMovie(movie: any) {
     let dialogRef = this.dialog.open(DialogRemoveComponent, { data: movie.title });
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'yes') this.movies.remove(movie.$key);
+      if (result === 'yes') this.moviesService.deleteMovie(this.authService.getUid(), movie);
     });
   }
 
