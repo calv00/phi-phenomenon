@@ -41,6 +41,7 @@ export class HomePageComponent implements OnInit {
 
   private user_displayName: String;
   private user_email: String;
+  private orderFlag: boolean = false; //ASC if true / DESC if false
   user_photoURL: String;
   movies: FirebaseListObservable<any[]>;
   flip: string[] = ['inactive'];
@@ -68,7 +69,7 @@ export class HomePageComponent implements OnInit {
           this.user_email = auth.email;
           let userPath = '/users/'.concat(auth.uid);
           this.authService.setUid(auth.uid);
-          this.getMoviesReversed(auth.uid)
+          this.getMovies();
         }
       }
     );
@@ -83,26 +84,36 @@ export class HomePageComponent implements OnInit {
   sort(event) {
     this.moviesService.setchildAttribute(event['child']);
     if (event['order'] == 'ASC') {
-      this.getMovies(this.authService.getUid());
+      this.orderFlag = true;
     }
     else {
-      this.getMoviesReversed(this.authService.getUid());
+      this.orderFlag = false;
     }
+    this.getMovies();
   }
 
   scroll() {
     this.moviesService.showMore();
-    this.getMovies(this.authService.getUid());
+    this.getMovies();
   }
 
-  private getMovies(authUID) {
+  private getMovies() {
+    if (this.orderFlag == true) {
+      this.getMoviesAscending(this.authService.getUid());
+    }
+    else {
+      this.getMoviesDescending(this.authService.getUid());
+    }
+  }
+
+  private getMoviesAscending(authUID) {
     this.subscription = this.moviesService.getMovies(authUID)
       .subscribe(movies => {
         this.movies = movies;
       });
   }
 
-  private getMoviesReversed(authUID) {
+  private getMoviesDescending(authUID) {
     this.subscription = this.moviesService.getMoviesReversed(authUID)
       .subscribe(movies => {
         this.movies = movies;
@@ -116,6 +127,7 @@ export class HomePageComponent implements OnInit {
 
   openDialogForm() {
     let dialogRef = this.dialog.open(DialogFormComponent);
+    dialogRef.afterClosed().subscribe(result => this.getMovies());
   }
 
   toggleUserFlip() {
@@ -131,13 +143,17 @@ export class HomePageComponent implements OnInit {
     let dialogRef = this.dialog.open(DialogUpdateComponent, { data: movie.title });
     dialogRef.afterClosed().subscribe(result => {
       this.moviesService.updateMovie(this.authService.getUid(), movie, result);
+      this.getMovies();
     });
   }
 
   deleteMovie(movie: any) {
     let dialogRef = this.dialog.open(DialogRemoveComponent, { data: movie.title });
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'yes') this.moviesService.deleteMovie(this.authService.getUid(), movie);
+      if (result === 'yes') {
+        this.moviesService.deleteMovie(this.authService.getUid(), movie);
+        this.getMovies();
+      }
     });
   }
 

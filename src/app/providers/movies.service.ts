@@ -53,6 +53,10 @@ export class MoviesService {
     }).map((array) => array.reverse()) as FirebaseListObservable<any[]>; 
   }
 
+  createMovie(authUID, movie) {
+    this.db.list('/users/'.concat(authUID)).push(movie);
+  }
+
   updateMovie(authUID, movie, result) {
     this.db.list('/users/'.concat(authUID)).update(movie.$key, { mark: result });
   }

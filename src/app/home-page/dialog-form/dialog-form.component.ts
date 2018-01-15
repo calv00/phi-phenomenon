@@ -3,6 +3,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { MdDialogRef } from '@angular/material';
 
 import { MovieService } from '../../providers/movie.service';
+import { MoviesService } from '../../providers/movies.service';
 import { AuthService } from '../../providers/auth.service';
 
 @Component({
@@ -25,18 +26,11 @@ export class DialogFormComponent implements OnInit {
       public dialogRef: MdDialogRef<DialogFormComponent>,
       public authService: AuthService,
       private db: AngularFireDatabase,
-      private movieService: MovieService
+      private movieService: MovieService,
+      private moviesService: MoviesService
   ) {
-    this.authService.user.subscribe(
-      (auth) => {
-        if (auth == null) {
-          this.user_uid = '';
-        } else {
-          this.user_uid = auth.uid;
-        }
-      }
-    );
-   }
+
+  }
 
   ngOnInit() {
   }
@@ -67,23 +61,21 @@ export class DialogFormComponent implements OnInit {
     this.movieService.getMovie(this.selectedMovie)
   .subscribe(
     movieJson => {
-      let userPath = '/users/'.concat(this.user_uid);
-      const movieObservable = this.db.list(userPath);
+      var newMovie: any;
       if (this.selectedMark === undefined) {
-        var pendingMmovie = {
+        newMovie = {
           title: movieJson.title,
           posterUrl: movieJson.poster
         };
-        movieObservable.push(pendingMmovie);
       }
       else {
-        var ratedMovie = {
+        newMovie = {
           title: movieJson.title,
           mark: this.selectedMark,
           posterUrl: movieJson.poster
         };
-        movieObservable.push(ratedMovie);
       }
+    this.moviesService.createMovie(this.authService.getUid(), newMovie);
     // Interacting with Observable/Promise
     this.dialogRef.close();
     },
