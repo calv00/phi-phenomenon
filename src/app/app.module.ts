@@ -17,15 +17,15 @@ import { MoviesService } from './providers/movies.service';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { HomePageComponent } from './home-page/home-page.component';
-import { DialogFormComponent } from './home-page/dialog-form/dialog-form.component';
-import { DialogUpdateComponent } from './home-page/dialog-update/dialog-update.component';
-import { DialogRemoveComponent } from './home-page/dialog-remove/dialog-remove.component';
-import { MenuOptionsComponent } from './home-page/menu-options/menu-options.component';
-import { SortMenuComponent } from './home-page/sort-menu/sort-menu.component';
+import { MoviesPageComponent } from './movies-page/movies-page.component';
+import { DialogFormComponent } from './shared/dialog-form/dialog-form.component';
+import { DialogUpdateComponent } from './shared/dialog-update/dialog-update.component';
+import { DialogRemoveComponent } from './shared/dialog-remove/dialog-remove.component';
+import { MenuOptionsComponent } from './shared/menu-options/menu-options.component';
+import { SortMenuComponent } from './shared/sort-menu/sort-menu.component';
 
 const routes: Routes = [
-  { path: '', component: HomePageComponent },
+  { path: '', component: MoviesPageComponent },
   { path: 'login', component: LoginPageComponent }
 ];
 
@@ -33,7 +33,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginPageComponent,
-    HomePageComponent,
+    MoviesPageComponent,
     DialogFormComponent,
     DialogUpdateComponent,
     DialogRemoveComponent,

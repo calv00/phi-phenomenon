@@ -4,16 +4,16 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import { MdDialog } from '@angular/material';
 import * as _ from "lodash";
 
-import { DialogFormComponent } from './dialog-form/dialog-form.component';
-import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
-import { DialogRemoveComponent } from './dialog-remove/dialog-remove.component';
+import { DialogFormComponent } from '../shared/dialog-form/dialog-form.component';
+import { DialogUpdateComponent } from '../shared/dialog-update/dialog-update.component';
+import { DialogRemoveComponent } from '../shared/dialog-remove/dialog-remove.component';
 import { AuthService } from '../providers/auth.service';
 import { MoviesService } from '../providers/movies.service';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css'],
+  selector: 'movies-page',
+  templateUrl: './movies-page.component.html',
+  styleUrls: ['./movies-page.component.css'],
   animations: [
     trigger('flipState', [
       state('active', style({
@@ -37,7 +37,7 @@ import { MoviesService } from '../providers/movies.service';
     ])
   ]
 })
-export class HomePageComponent implements OnInit {
+export class MoviesPageComponent implements OnInit {
 
   private user_displayName: String;
   private user_email: String;
