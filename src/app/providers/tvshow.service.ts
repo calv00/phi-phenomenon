@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import { config } from '../../environments/config';
 
 @Injectable()
-export class TvService {
+export class TvshowService {
   private searchUrl: string = `https://api.themoviedb.org/3/search/tv?api_key=${config.apiKey}&language=en-US`;
   constructor(private http: Http) { }
 

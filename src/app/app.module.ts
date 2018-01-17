@@ -13,7 +13,8 @@ import { firebaseConfig } from '../environments/config';
 
 import { AuthService } from './providers/auth.service';
 import { MovieService } from './providers/movie.service';
-import { MoviesService } from './providers/movies.service';
+import { FirebaseService } from './providers/firebase.service';
+import { TvshowService } from './providers/tvshow.service';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -23,9 +24,12 @@ import { DialogUpdateComponent } from './shared/dialog-update/dialog-update.comp
 import { DialogRemoveComponent } from './shared/dialog-remove/dialog-remove.component';
 import { MenuOptionsComponent } from './shared/menu-options/menu-options.component';
 import { SortMenuComponent } from './shared/sort-menu/sort-menu.component';
+import { TvShowsPageComponent } from './tv-shows-page/tv-shows-page.component';
 
 const routes: Routes = [
-  { path: '', component: MoviesPageComponent },
+  { path: '', redirectTo: '/movies', pathMatch: 'full' },
+  { path: 'movies', component: MoviesPageComponent },
+  { path: 'tvshows', component: TvShowsPageComponent },
   { path: 'login', component: LoginPageComponent }
 ];
 
@@ -38,7 +42,8 @@ const routes: Routes = [
     DialogUpdateComponent,
     DialogRemoveComponent,
     MenuOptionsComponent,
-    SortMenuComponent
+    SortMenuComponent,
+    TvShowsPageComponent
   ],
   entryComponents: [
     DialogFormComponent,
@@ -62,8 +67,9 @@ const routes: Routes = [
   ],
   providers: [
     AuthService,
+    FirebaseService,
     MovieService,
-    MoviesService
+    TvshowService
   ],
   bootstrap: [AppComponent]
 })

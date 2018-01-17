@@ -7,10 +7,21 @@ import { AuthService } from '../providers/auth.service';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
-  constructor(public authService: AuthService, private router:Router) { }
+  constructor(public authService: AuthService, private router:Router) {
+    
+   }
   ngOnInit() {
+    this.authService.user.subscribe(
+      (auth) => {
+        if (auth == null) {
+          this.router.navigate(['login']);
+        } else {
+          this.router.navigate(['']);
+        }
+      });
   }
   login() {
     this.authService.login();
+    this.router.navigate(['']);
   }
 }

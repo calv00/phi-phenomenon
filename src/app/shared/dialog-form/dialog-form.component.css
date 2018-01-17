@@ -43,18 +43,18 @@
     justify-content: center;
 }
 
-.search-container .movie-div {
+.search-container .item-div {
     display: flex;
     flex-direction: row;
     margin: 0.1em;
     cursor: pointer;
 }
 
-.movie-div img{
+.item-div img{
     border-radius: 15px;
 }
 
-.movie-selected {
+.item-selected {
     margin-top: 1em;
     font-family: 'Roboto', serif;
     font-size: 1.5em;

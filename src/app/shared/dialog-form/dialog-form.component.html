@@ -1,20 +1,20 @@
 <div class="form-container">
   <div class="search-bar">
     <md-input-container>
-      <input mdInput type="text" class="ghost-input" placeholder="I wanna see a new movie"
-        onfocus="this.placeholder = ''" onblur="this.placeholder = 'No movies ?'" #movieTitle (blur)="addMovieTitle(movieTitle.value)">
+      <input mdInput type="text" class="ghost-input" placeholder="New search"
+        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nothing ?'" #itemTitle (blur)="addItemTitle(itemTitle.value)">
     </md-input-container>
-    <button md-fab (click)="searchMovie()" color="primary">
+    <button md-fab (click)="searchItem()" color="primary">
       <md-icon>search</md-icon>
     </button>
   </div>
     <div *ngIf="viewSearch" class="search-container">
-      <div *ngFor="let movie of movieList" class="movie-div">
-        <img src="{{movie.poster}}" (click)="selectMovie(movie.title)">
+      <div *ngFor="let item of itemList" class="item-div">
+        <img src="{{item.poster}}" (click)="selectItem(item.title)">
       </div>
     </div>
-    <div class="movie-selected">
-      {{ selectedMovie }}
+    <div class="item-selected">
+      {{ selectedItem }}
     </div>
     <div class="puntuation-container">
       <span class="span-left"></span>
@@ -29,7 +29,7 @@
       </div>
       <span class="span-right"></span>
     </div>
-    <button md-fab (click)="saveMovie()" class="save-button" color="primary">
+    <button md-fab (click)="saveItem()" class="save-button" color="primary">
       <md-icon>save</md-icon>
     </button>
 </div>

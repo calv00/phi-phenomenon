@@ -11,9 +11,9 @@ import { AuthService } from '../providers/auth.service';
 import { FirebaseService } from '../providers/firebase.service';
 
 @Component({
-  selector: 'movies-page',
-  templateUrl: './movies-page.component.html',
-  styleUrls: ['./movies-page.component.css'],
+  selector: 'tv-shows-page',
+  templateUrl: './tv-shows-page.component.html',
+  styleUrls: ['./tv-shows-page.component.css'],
   animations: [
     trigger('flipState', [
       state('active', style({
@@ -37,13 +37,13 @@ import { FirebaseService } from '../providers/firebase.service';
     ])
   ]
 })
-export class MoviesPageComponent implements OnInit {
+export class TvShowsPageComponent implements OnInit {
 
   private user_displayName: String;
   private user_email: String;
   private orderFlag: boolean = false; //ASC if true / DESC if false
   user_photoURL: String;
-  movies: FirebaseListObservable<any[]>;
+  tvshows: FirebaseListObservable<any[]>;
   flip: string[] = ['inactive'];
   flipUser: string = 'inactive';
   menuFlag: boolean = false;
@@ -69,8 +69,8 @@ export class MoviesPageComponent implements OnInit {
           this.user_email = auth.email;
           let userPath = '/users/'.concat(auth.uid);
           this.authService.setUid(auth.uid);
-          this.firebaseService.setDbChild('movies');
-          this.getMovies();
+          this.firebaseService.setDbChild('tvshows');
+          this.getTvshows();
         }
       }
     );
@@ -90,34 +90,34 @@ export class MoviesPageComponent implements OnInit {
     else {
       this.orderFlag = false;
     }
-    this.getMovies();
+    this.getTvshows();
   }
 
   scroll() {
     this.firebaseService.showMore();
-    this.getMovies();
+    this.getTvshows();
   }
 
-  private getMovies() {
+  private getTvshows() {
     if (this.orderFlag == true) {
-      this.getMoviesAscending(this.authService.getUid());
+      this.getTvshowsAscending(this.authService.getUid());
     }
     else {
-      this.getMoviesDescending(this.authService.getUid());
+      this.getTvshowsDescending(this.authService.getUid());
     }
   }
 
-  private getMoviesAscending(authUID) {
+  private getTvshowsAscending(authUID) {
     this.subscription = this.firebaseService.getItems(authUID)
-      .subscribe(movies => {
-        this.movies = movies;
+      .subscribe(tvshows => {
+        this.tvshows = tvshows;
       });
   }
 
-  private getMoviesDescending(authUID) {
+  private getTvshowsDescending(authUID) {
     this.subscription = this.firebaseService.getItemsReversed(authUID)
-      .subscribe(movies => {
-        this.movies = movies;
+      .subscribe(tvshows => {
+        this.tvshows = tvshows;
       });
   }
 
@@ -127,8 +127,8 @@ export class MoviesPageComponent implements OnInit {
   }
 
   openDialogForm() {
-    let dialogRef = this.dialog.open(DialogFormComponent, { data: 'movie'});
-    dialogRef.afterClosed().subscribe(result => this.getMovies());
+    let dialogRef = this.dialog.open(DialogFormComponent, { data: 'tvshow'});
+    dialogRef.afterClosed().subscribe(result => this.getTvshows());
   }
 
   toggleUserFlip() {
@@ -140,20 +140,20 @@ export class MoviesPageComponent implements OnInit {
     if (this.flipUser === 'active') this.flipUser = 'inactive';
   }
 
-  editMovie(movie: any) {
-    let dialogRef = this.dialog.open(DialogUpdateComponent, { data: movie.title });
+  editTvshow(tvshow: any) {
+    let dialogRef = this.dialog.open(DialogUpdateComponent, { data: tvshow.title });
     dialogRef.afterClosed().subscribe(result => {
-      this.firebaseService.updateItem(this.authService.getUid(), movie, result);
-      this.getMovies();
+      this.firebaseService.updateItem(this.authService.getUid(), tvshow, result);
+      this.getTvshows();
     });
   }
 
-  deleteMovie(movie: any) {
-    let dialogRef = this.dialog.open(DialogRemoveComponent, { data: movie.title });
+  deleteTvshow(tvshow: any) {
+    let dialogRef = this.dialog.open(DialogRemoveComponent, { data: tvshow.title });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.firebaseService.deleteItem(this.authService.getUid(), movie);
-        this.getMovies();
+        this.firebaseService.deleteItem(this.authService.getUid(), tvshow);
+        this.getTvshows();
       }
     });
   }

@@ -13,8 +13,6 @@ export class AppComponent {
       (auth) => {
         if (auth == null) {
           this.router.navigate(['login']);
-        } else {
-          this.router.navigate(['']);
         }
       }
     );

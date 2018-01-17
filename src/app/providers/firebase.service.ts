@@ -3,13 +3,14 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
-export class MoviesService {
+export class FirebaseService {
 
   private limitNumber: number = 16;
   private limit:BehaviorSubject<number> = new BehaviorSubject<number>(this.limitNumber);
 
+  private dbChild: string = '';
   private childAttribute: string = '';
-  private movies: FirebaseListObservable<any[]>;
+  private items: FirebaseListObservable<any[]>;
 
   constructor(
     private db: AngularFireDatabase
@@ -21,6 +22,14 @@ export class MoviesService {
 
   getLimitNumber(): number {
     return this.limitNumber;
+  }
+
+  setDbChild(dbChild: string): void {
+    this.dbChild = dbChild;
+  }
+
+  getDbChild(): string {
+    return this.dbChild;
   }
 
   setchildAttribute(childAttribute:string): void {
@@ -35,8 +44,8 @@ export class MoviesService {
     this.limit.next(this.limit.getValue() + 8);
   }
 
-  getMovies(authUID): FirebaseListObservable<any> {
-    return this.db.list('/users/'.concat(authUID) , {
+  getItems(authUID): FirebaseListObservable<any> {
+    return this.db.list('/users/'.concat(authUID).concat(`/${this.dbChild}`) , {
       query: {
         orderByChild: this.childAttribute,
         //limitToFirst: this.limit.value
@@ -44,8 +53,8 @@ export class MoviesService {
     });
   }
 
-  getMoviesReversed(authUID): FirebaseListObservable<any> {
-    return this.db.list('/users/'.concat(authUID) , {
+  getItemsReversed(authUID): FirebaseListObservable<any> {
+    return this.db.list('/users/'.concat(authUID).concat(`/${this.dbChild}`) , {
       query: {
         orderByChild: this.childAttribute,
         //limitToFirst: this.limit.value
@@ -53,16 +62,16 @@ export class MoviesService {
     }).map((array) => array.reverse()) as FirebaseListObservable<any[]>; 
   }
 
-  createMovie(authUID, movie) {
-    this.db.list('/users/'.concat(authUID)).push(movie);
+  createItem(authUID, item) {
+    this.db.list('/users/'.concat(authUID).concat(`/${this.dbChild}`)).push(item);
   }
 
-  updateMovie(authUID, movie, result) {
-    this.db.list('/users/'.concat(authUID)).update(movie.$key, { mark: result });
+  updateItem(authUID, item, result) {
+    this.db.list('/users/'.concat(authUID).concat(`/${this.dbChild}`)).update(item.$key, { mark: result });
   }
 
-  deleteMovie(authUID, movie) {
-    this.db.list('/users/'.concat(authUID)).remove(movie.$key);
+  deleteItem(authUID, item) {
+    this.db.list('/users/'.concat(authUID).concat(`/${this.dbChild}`)).remove(item.$key);
   }
 
   /*
