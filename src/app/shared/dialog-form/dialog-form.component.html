@@ -10,11 +10,11 @@
   </div>
     <div *ngIf="viewSearch" class="search-container">
       <div *ngFor="let item of itemList" class="item-div">
-        <img src="{{item.poster}}" (click)="selectItem(item.title)">
+        <img src="{{item.poster}}" (click)="selectItem(item)">
       </div>
     </div>
     <div class="item-selected">
-      {{ selectedItem }}
+      {{ selectedItem.title }}
     </div>
     <div class="puntuation-container">
       <span class="span-left"></span>

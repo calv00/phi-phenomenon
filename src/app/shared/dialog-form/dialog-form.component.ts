@@ -21,7 +21,10 @@ export class DialogFormComponent implements OnInit {
   private errorMessage: string;
   viewSearch: boolean = false;
   itemList: any[];
-  selectedItem: string;
+  selectedItem = {
+    title: '',
+    poster: ''
+  };
 
   constructor(
       public dialogRef: MdDialogRef<DialogFormComponent>,
@@ -45,7 +48,7 @@ export class DialogFormComponent implements OnInit {
     this.selectedMark = mark;
   }
 
-  selectItem(itemTitle: string) {
+  selectItem(itemTitle: any) {
     this.selectedItem = itemTitle;
   }
 
@@ -98,57 +101,49 @@ export class DialogFormComponent implements OnInit {
   }
 
   saveMovie() {
-    this.movieService.getMovie(this.selectedItem)
-  .subscribe(
-    movieJson => {
       var newMovie: any;
       if (this.selectedMark === undefined) {
         newMovie = {
-          title: movieJson.title,
-          posterUrl: movieJson.poster
+          title: this.selectedItem.title,
+          posterUrl: this.setPosterUrl(this.selectedItem.poster)
         };
       }
       else {
         newMovie = {
-          title: movieJson.title,
+          title: this.selectedItem.title,
           mark: this.selectedMark,
-          posterUrl: movieJson.poster
+          posterUrl: this.setPosterUrl(this.selectedItem.poster)
         };
       }
     this.firebaseService.createItem(this.authService.getUid(), newMovie);
     // Interacting with Observable/Promise
     this.dialogRef.close();
-    },
-    error => this.errorMessage = <any>error
-  );
   }
 
   saveTvshow() {
-    console.log(this.selectedItem);
-    this.tvshowService.getTvshow(this.selectedItem)
-  .subscribe(
-    tvshowJson => {
       var newTvshow: any;
       if (this.selectedMark === undefined) {
         newTvshow = {
-          title: tvshowJson.title,
-          posterUrl: tvshowJson.poster
+          title: this.selectedItem.title,
+          posterUrl: this.setPosterUrl(this.selectedItem.poster)
         };
       }
       else {
         newTvshow = {
-          title: tvshowJson.title,
+          title: this.selectedItem.title,
           mark: this.selectedMark,
-          posterUrl: tvshowJson.poster
+          posterUrl: this.setPosterUrl(this.selectedItem.poster)
         };
       }
-      console.log(newTvshow);
     this.firebaseService.createItem(this.authService.getUid(), newTvshow);
     // Interacting with Observable/Promise
     this.dialogRef.close();
-    },
-    error => this.errorMessage = <any>error
-  );
+  }
+
+  private setPosterUrl(url: string): string {
+    var aux1 = url.slice(0, 26);
+    var aux2 = url.slice(30, url.length);
+    return aux1.concat('w500').concat(aux2);
   }
 
 }

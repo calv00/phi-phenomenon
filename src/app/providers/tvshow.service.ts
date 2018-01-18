@@ -11,30 +11,11 @@ export class TvshowService {
   private searchUrl: string = `https://api.themoviedb.org/3/search/tv?api_key=${config.apiKey}&language=en-US`;
   constructor(private http: Http) { }
 
-  getTvshow(query: string): Observable<any> {
-    return this.http
-      .get(`${this.searchUrl}&query=${query}&page=1`, this.getHeaders)
-      .map(this.mapJson)
-      .catch(this.handleError);
-  }
-
   getTvshows(query: string): Observable<any[]> {
     return this.http
       .get(`${this.searchUrl}&query=${query}&page=1`, this.getHeaders)
       .map(this.mapTvshows)
       .catch(this.handleError);
-  }
-
-  private mapJson(res: Response) {
-    let returnJson = {
-      "title": '',
-      "poster": ''
-    };
-    let body = res.json();
-    let mapUrl = 'http://image.tmdb.org/t/p/w500//'
-    returnJson.title = body.results[0].name;
-    returnJson.poster = mapUrl.concat(body.results[0].poster_path);
-    return returnJson;
   }
 
   private mapTvshows(res: Response) {
