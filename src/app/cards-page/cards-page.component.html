@@ -5,7 +5,7 @@
         <md-icon>menu</md-icon>
       </button>
       <div class="float-menu-container" *ngIf="menuFlag">
-        <menu-options></menu-options>
+        <menu-options (changeCategoryEE)="changeCategory($event)"></menu-options>
       </div>
     </div>
     <div class="button-container-center">
@@ -27,27 +27,27 @@
   <div class="sort-container">
     <sort-menu (sortEE)="sort($event)"></sort-menu>
   </div>
-  <div class="tvshows-container">
-    <div #myTvshow *ngFor="let tvshow of tvshows; let i = index" (click)="toggleFlip(i)" [@flipState]="flip[i]" class="tvshow-div">
-      <div class="tvshow-flip tvshow-front">
-        <img src="{{tvshow.posterUrl}}">
+  <div class="cards-container">
+    <div #myCard *ngFor="let card of cards; let i = index" (click)="toggleFlip(i)" [@flipState]="flip[i]" class="card-div">
+      <div class="card-flip card-front">
+        <img src="{{card.posterUrl}}">
       </div>
-      <div class="tvshow-flip tvshow-back">
+      <div class="card-flip card-back">
         <div class="buttons-container-top">
-          <button class="edit-button" md-fab (click)="editTvshow(tvshow)" color='primary'>
+          <button class="edit-button" md-fab (click)="editCard(card)" color='primary'>
             <md-icon>movie_filter</md-icon>
           </button>
         </div>
         <div class="words-container">
           <div class="back-title">
-            {{ tvshow.title }}
+            {{ card.title }}
           </div>
           <div class="back-mark">
-            {{ tvshow.mark }}
+            {{ card.mark }}
           </div>
         </div>
         <div class="buttons-container-bottom">
-          <button class="delete-button" md-fab (click)="deleteTvshow(tvshow)" color="warn">
+          <button class="delete-button" md-fab (click)="deleteCard(card)" color="warn">
             <md-icon>delete</md-icon>
           </button>
         </div>

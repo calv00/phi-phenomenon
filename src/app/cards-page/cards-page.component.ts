@@ -11,9 +11,9 @@ import { AuthService } from '../providers/auth.service';
 import { FirebaseService } from '../providers/firebase.service';
 
 @Component({
-  selector: 'tv-shows-page',
-  templateUrl: './tv-shows-page.component.html',
-  styleUrls: ['./tv-shows-page.component.css'],
+  selector: 'cards-page',
+  templateUrl: './cards-page.component.html',
+  styleUrls: ['./cards-page.component.css'],
   animations: [
     trigger('flipState', [
       state('active', style({
@@ -37,13 +37,14 @@ import { FirebaseService } from '../providers/firebase.service';
     ])
   ]
 })
-export class TvShowsPageComponent implements OnInit {
+export class CardsPageComponent implements OnInit {
 
   private user_displayName: String;
   private user_email: String;
   private orderFlag: boolean = false; //ASC if true / DESC if false
   user_photoURL: String;
-  tvshows: FirebaseListObservable<any[]>;
+  cards: FirebaseListObservable<any[]>;
+  cardCategory: string = 'movies';
   flip: string[] = ['inactive'];
   flipUser: string = 'inactive';
   menuFlag: boolean = false;
@@ -69,8 +70,7 @@ export class TvShowsPageComponent implements OnInit {
           this.user_email = auth.email;
           let userPath = '/users/'.concat(auth.uid);
           this.authService.setUid(auth.uid);
-          this.firebaseService.setDbChild('tvshows');
-          this.getTvshows();
+          this.getCards();
         }
       }
     );
@@ -82,6 +82,12 @@ export class TvShowsPageComponent implements OnInit {
     this.menuFlag =! this.menuFlag;
   }
 
+  changeCategory(event) {
+    this.cardCategory = event['category'];
+    this.firebaseService.setDbChild(event['category']);
+    this.getCards();
+  }
+
   sort(event) {
     this.firebaseService.setchildAttribute(event['child']);
     if (event['order'] == 'ASC') {
@@ -90,34 +96,34 @@ export class TvShowsPageComponent implements OnInit {
     else {
       this.orderFlag = false;
     }
-    this.getTvshows();
+    this.getCards();
   }
 
   scroll() {
     this.firebaseService.showMore();
-    this.getTvshows();
+    this.getCards();
   }
 
-  private getTvshows() {
+  private getCards() {
     if (this.orderFlag == true) {
-      this.getTvshowsAscending(this.authService.getUid());
+      this.getCardsAscending(this.authService.getUid());
     }
     else {
-      this.getTvshowsDescending(this.authService.getUid());
+      this.getCardsDescending(this.authService.getUid());
     }
   }
 
-  private getTvshowsAscending(authUID) {
+  private getCardsAscending(authUID) {
     this.subscription = this.firebaseService.getItems(authUID)
-      .subscribe(tvshows => {
-        this.tvshows = tvshows;
+      .subscribe(cards => {
+        this.cards = cards;
       });
   }
 
-  private getTvshowsDescending(authUID) {
+  private getCardsDescending(authUID) {
     this.subscription = this.firebaseService.getItemsReversed(authUID)
-      .subscribe(tvshows => {
-        this.tvshows = tvshows;
+      .subscribe(cards => {
+        this.cards = cards;
       });
   }
 
@@ -127,8 +133,9 @@ export class TvShowsPageComponent implements OnInit {
   }
 
   openDialogForm() {
-    let dialogRef = this.dialog.open(DialogFormComponent, { data: 'tvshow'});
-    dialogRef.afterClosed().subscribe(result => this.getTvshows());
+    console.log(this.cardCategory);
+    let dialogRef = this.dialog.open(DialogFormComponent, { data: this.cardCategory});
+    dialogRef.afterClosed().subscribe(result => this.getCards());
   }
 
   toggleUserFlip() {
@@ -140,20 +147,20 @@ export class TvShowsPageComponent implements OnInit {
     if (this.flipUser === 'active') this.flipUser = 'inactive';
   }
 
-  editTvshow(tvshow: any) {
-    let dialogRef = this.dialog.open(DialogUpdateComponent, { data: tvshow.title });
+  editCard(card: any) {
+    let dialogRef = this.dialog.open(DialogUpdateComponent, { data: card.title });
     dialogRef.afterClosed().subscribe(result => {
-      this.firebaseService.updateItem(this.authService.getUid(), tvshow, result);
-      this.getTvshows();
+      this.firebaseService.updateItem(this.authService.getUid(), card, result);
+      this.getCards();
     });
   }
 
-  deleteTvshow(tvshow: any) {
-    let dialogRef = this.dialog.open(DialogRemoveComponent, { data: tvshow.title });
+  deleteCard(card: any) {
+    let dialogRef = this.dialog.open(DialogRemoveComponent, { data: card.title });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.firebaseService.deleteItem(this.authService.getUid(), tvshow);
-        this.getTvshows();
+        this.firebaseService.deleteItem(this.authService.getUid(), card);
+        this.getCards();
       }
     });
   }

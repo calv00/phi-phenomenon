@@ -72,14 +72,14 @@ button md-icon {
     text-align: center;
 }
 
-.movies-container {
+.cards-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 
-.movies-container .movie-div {
+.cards-container .card-div {
     border-radius: 15px;
     height: 633px;
     width: 422px;
@@ -107,29 +107,29 @@ button md-icon {
         margin-top: 25%
     }
     
-    .movies-container .movie-div {
+    .cards-container .card-div {
         height: 250.668px;
         width: 167.112px;
     }
 
-    .movie-flip.movie-back .back-title {
+    .card-flip.card-back .back-title {
         font-size: 1em;
     }
 
-    .movie-flip.movie-back .back-mark {
+    .card-flip.card-back .back-mark {
         font-size: 3em;
     }
 
-    .movie-flip.movie-back .buttons-container-top {
+    .card-flip.card-back .buttons-container-top {
         margin-top: 1em;
     }
 
-    .movie-flip.movie-back .buttons-container-bottom {
+    .card-flip.card-back .buttons-container-bottom {
         margin-bottom: 1em;
     }
 }
 
-.movie-flip {
+.card-flip {
     border-radius: inherit;
     height: 100%;
     width: 100%;;
@@ -141,18 +141,18 @@ button md-icon {
     user-select: none;
 }
 
-.movie-front {
+.card-front {
     height: 100%;
     width: auto;
 }
 
-.movie-front img {
+.card-front img {
     border-radius: inherit;
     max-height: 100%;
     width: auto;
 }
 
-.movie-back {
+.card-back {
     background-color:rgba(0, 0, 0, 0.5);
     transform: rotateY(179.9deg);
     display: flex;
@@ -160,16 +160,16 @@ button md-icon {
     align-content: center;
 }
 
-.movie-back .buttons-container-top {
+.card-back .buttons-container-top {
     margin-top: 4em;
     
 }
 
-.movie-back .buttons-container-bottom {
+.card-back .buttons-container-bottom {
     margin-bottom: 4em;
 }
 
-.movie-back .words-container {
+.card-back .words-container {
     flex: 1;
     display: flex;
     flex-direction: column;

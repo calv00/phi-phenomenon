@@ -54,11 +54,11 @@ export class DialogFormComponent implements OnInit {
 
   searchItem() {
     switch (this.data) {
-      case 'movie': {
+      case 'movies': {
         this.searchMovie();
         break;
       }
-      case 'tvshow': {
+      case 'tvshows': {
         this.searchTvshow();
         break;
       }
@@ -89,11 +89,11 @@ export class DialogFormComponent implements OnInit {
 
   saveItem() {
     switch (this.data) {
-      case 'movie': {
+      case 'movies': {
         this.saveMovie();
         break;
       }
-      case 'tvshow': {
+      case 'tvshows': {
         this.saveTvshow();
         break;
       }

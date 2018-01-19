@@ -18,18 +18,16 @@ import { TvshowService } from './providers/tvshow.service';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { MoviesPageComponent } from './movies-page/movies-page.component';
+import { CardsPageComponent } from './cards-page/cards-page.component';
 import { DialogFormComponent } from './shared/dialog-form/dialog-form.component';
 import { DialogUpdateComponent } from './shared/dialog-update/dialog-update.component';
 import { DialogRemoveComponent } from './shared/dialog-remove/dialog-remove.component';
 import { MenuOptionsComponent } from './shared/menu-options/menu-options.component';
 import { SortMenuComponent } from './shared/sort-menu/sort-menu.component';
-import { TvShowsPageComponent } from './tv-shows-page/tv-shows-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/movies', pathMatch: 'full' },
-  { path: 'movies', component: MoviesPageComponent },
-  { path: 'tvshows', component: TvShowsPageComponent },
+  { path: '', redirectTo: '/cards', pathMatch: 'full' },
+  { path: 'cards', component: CardsPageComponent },
   { path: 'login', component: LoginPageComponent }
 ];
 
@@ -37,13 +35,12 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginPageComponent,
-    MoviesPageComponent,
+    CardsPageComponent,
     DialogFormComponent,
     DialogUpdateComponent,
     DialogRemoveComponent,
     MenuOptionsComponent,
-    SortMenuComponent,
-    TvShowsPageComponent
+    SortMenuComponent
   ],
   entryComponents: [
     DialogFormComponent,

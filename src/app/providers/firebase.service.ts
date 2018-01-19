@@ -8,7 +8,7 @@ export class FirebaseService {
   private limitNumber: number = 16;
   private limit:BehaviorSubject<number> = new BehaviorSubject<number>(this.limitNumber);
 
-  private dbChild: string = '';
+  private dbChild: string = 'movies';
   private childAttribute: string = '';
   private items: FirebaseListObservable<any[]>;
 

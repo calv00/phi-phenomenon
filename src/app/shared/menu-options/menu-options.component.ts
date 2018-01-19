@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
+import { FirebaseService } from '../../providers/firebase.service';
 
 @Component({
   selector: 'menu-options',
@@ -7,26 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuOptionsComponent implements OnInit {
 
+  @Output()
+  changeCategoryEE:EventEmitter<{}> = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    public firebaseService: FirebaseService
+  ) { }
 
   ngOnInit() {
   }
 
-  searchMenuClick() {
-    console.log("Search menu click");
+  categoryMovies() {
+    this.changeCategoryEE.emit({ category: 'movies'});
   }
 
-  sortMenuClick() {
-    console.log("Sort menu click");
+  categoryTvshows() {
+    this.changeCategoryEE.emit({ category: 'tvshows'});
   }
 
-  viewsMenuClick() {
-    console.log("Views menu click");
+  categoryBooks() {
+    console.log("Books category click");
   }
 
-  categoryMenuClick() {
-    console.log("Category menu click");
+  categoryVideogames() {
+    console.log("Videogames category click");
   }
 
   closeFloatMenu() {
