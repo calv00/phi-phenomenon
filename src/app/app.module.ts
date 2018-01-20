@@ -24,11 +24,14 @@ import { DialogUpdateComponent } from './shared/dialog-update/dialog-update.comp
 import { DialogRemoveComponent } from './shared/dialog-remove/dialog-remove.component';
 import { MenuOptionsComponent } from './shared/menu-options/menu-options.component';
 import { SortMenuComponent } from './shared/sort-menu/sort-menu.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/cards', pathMatch: 'full' },
+  { path: '**', redirectTo: '/404' },
   { path: 'cards', component: CardsPageComponent },
-  { path: 'login', component: LoginPageComponent }
+  { path: 'login', component: LoginPageComponent },
+  { path: '404', component: NotFoundPageComponent }
 ];
 
 @NgModule({
@@ -40,7 +43,8 @@ const routes: Routes = [
     DialogUpdateComponent,
     DialogRemoveComponent,
     MenuOptionsComponent,
-    SortMenuComponent
+    SortMenuComponent,
+    NotFoundPageComponent
   ],
   entryComponents: [
     DialogFormComponent,
