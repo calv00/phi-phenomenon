@@ -39,11 +39,13 @@
 }
 
 .text-front {
+    opacity: 0;
     animation: effect 4s infinite;
     text-align: center;
 }
 
 .text-back {
+    opacity: 0;
     animation: effect 4s infinite;
     animation-delay: 2s;
     text-align: center;
