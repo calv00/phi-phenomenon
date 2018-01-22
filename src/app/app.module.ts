@@ -15,6 +15,7 @@ import { AuthService } from './providers/auth.service';
 import { MovieService } from './providers/movie.service';
 import { FirebaseService } from './providers/firebase.service';
 import { TvshowService } from './providers/tvshow.service';
+import { VideogameService } from './providers/videogame.service';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -70,7 +71,8 @@ const routes: Routes = [
     AuthService,
     FirebaseService,
     MovieService,
-    TvshowService
+    TvshowService,
+    VideogameService
   ],
   bootstrap: [AppComponent]
 })
