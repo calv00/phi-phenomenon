@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { JsonpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -29,10 +30,10 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
 
 const routes: Routes = [
   { path: '', redirectTo: '/cards', pathMatch: 'full' },
-  { path: '**', redirectTo: '/404' },
   { path: 'cards', component: CardsPageComponent },
   { path: 'login', component: LoginPageComponent },
-  { path: '404', component: NotFoundPageComponent }
+  { path: '404', component: NotFoundPageComponent },
+  { path: '**', redirectTo: '/404' }
 ];
 
 @NgModule({
@@ -62,6 +63,7 @@ const routes: Routes = [
     MdDialogModule,
     MdButtonToggleModule,
     HttpModule,
+    JsonpModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,

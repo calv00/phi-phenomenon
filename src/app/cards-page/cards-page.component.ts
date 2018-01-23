@@ -83,6 +83,7 @@ export class CardsPageComponent implements OnInit {
   }
 
   changeCategory(event) {
+    this.menuFlag = false;
     this.cardCategory = event['category'];
     this.firebaseService.setDbChild(event['category']);
     this.getCards();

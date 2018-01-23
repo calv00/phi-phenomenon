@@ -4,6 +4,7 @@ import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 
 import { MovieService } from '../../providers/movie.service';
 import { TvshowService } from '../../providers/tvshow.service';
+import { VideogameService } from '../../providers/videogame.service';
 import { FirebaseService } from '../../providers/firebase.service';
 import { AuthService } from '../../providers/auth.service';
 
@@ -33,6 +34,7 @@ export class DialogFormComponent implements OnInit {
       private db: AngularFireDatabase,
       private movieService: MovieService,
       private tvshowService: TvshowService,
+      private videogameService: VideogameService,
       private firebaseService: FirebaseService
   ) {
 
@@ -53,6 +55,7 @@ export class DialogFormComponent implements OnInit {
   }
 
   searchItem() {
+    this.viewSearch = true;
     switch (this.data) {
       case 'movies': {
         this.searchMovie();
@@ -62,11 +65,14 @@ export class DialogFormComponent implements OnInit {
         this.searchTvshow();
         break;
       }
+      case 'videogames': {
+        this.searchVideogame();
+        break;
+      }
     }
   }
 
-  searchMovie() {
-    this.viewSearch = true;
+  private searchMovie() {
     this.movieService.getMovies(this.itemTitle)
     .subscribe(
       movies => {
@@ -76,12 +82,21 @@ export class DialogFormComponent implements OnInit {
     );
   }
 
-  searchTvshow() {
-    this.viewSearch = true;
+  private searchTvshow() {
     this.tvshowService.getTvshows(this.itemTitle)
     .subscribe(
       tvshows => {
         this.itemList = tvshows;
+      },
+      error => this.errorMessage = <any>error
+    );
+  }
+
+  private searchVideogame() {
+    this.videogameService.getVideogames(this.itemTitle)
+    .subscribe(
+      videogames => {
+        this.itemList = videogames;
       },
       error => this.errorMessage = <any>error
     );
@@ -96,6 +111,9 @@ export class DialogFormComponent implements OnInit {
       case 'tvshows': {
         this.saveTvshow();
         break;
+      }
+      case 'videogames': {
+        this.saveVideogame();
       }
     }
   }
@@ -116,7 +134,6 @@ export class DialogFormComponent implements OnInit {
         };
       }
     this.firebaseService.createItem(this.authService.getUid(), newMovie);
-    // Interacting with Observable/Promise
     this.dialogRef.close();
   }
 
@@ -136,9 +153,27 @@ export class DialogFormComponent implements OnInit {
         };
       }
     this.firebaseService.createItem(this.authService.getUid(), newTvshow);
-    // Interacting with Observable/Promise
     this.dialogRef.close();
   }
+
+  saveVideogame() {
+    var newVideogame: any;
+    if (this.selectedMark === undefined) {
+      newVideogame = {
+        title: this.selectedItem.title,
+        posterUrl: this.selectedItem.poster
+      };
+    }
+    else {
+      newVideogame = {
+        title: this.selectedItem.title,
+        mark: this.selectedMark,
+        posterUrl: this.selectedItem.poster
+      };
+    }
+  this.firebaseService.createItem(this.authService.getUid(), newVideogame);
+  this.dialogRef.close();
+}
 
   private setPosterUrl(url: string): string {
     var aux1 = url.slice(0, 26);

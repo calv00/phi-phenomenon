@@ -32,7 +32,7 @@ export class MenuOptionsComponent implements OnInit {
   }
 
   categoryVideogames() {
-    console.log("Videogames category click");
+    this.changeCategoryEE.emit({ category: 'videogames'});
   }
 
   closeFloatMenu() {
