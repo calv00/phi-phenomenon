@@ -12,7 +12,7 @@ export class SortMenuComponent implements OnInit {
   markAsc: boolean = false;
   markDesc: boolean = false;
   timeAsc: boolean = false;
-  timeDesc: boolean = false;
+  timeDesc: boolean = true;
 
   @Output()
   sortEE:EventEmitter<{}> = new EventEmitter();
