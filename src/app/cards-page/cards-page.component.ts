@@ -134,7 +134,6 @@ export class CardsPageComponent implements OnInit {
   }
 
   openDialogForm() {
-    console.log(this.cardCategory);
     let dialogRef = this.dialog.open(DialogFormComponent, { data: this.cardCategory});
     dialogRef.afterClosed().subscribe(result => this.getCards());
   }

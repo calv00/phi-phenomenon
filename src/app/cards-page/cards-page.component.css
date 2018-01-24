@@ -66,8 +66,30 @@ button md-icon {
     color: white;
 }
 
-.sort-container {
+.category-container {
     margin-top: 7%;
+    margin-bottom: 1em;
+    text-align: center;
+    color: white;
+    letter-spacing: 0.25em;
+    font-family: 'Roboto', serif;
+    font-size: 2em;
+    animation: effect 4s infinite;
+}
+
+@keyframes effect {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.sort-container {
     margin-bottom: 2em;
     text-align: center;
 }
@@ -91,19 +113,19 @@ button md-icon {
 }
 
 @media (max-width: 1024px) {
-    .sort-container { 
+    .category-container { 
         margin-top: 10%
     }
 }
 
 @media (max-width: 768px) {
-    .sort-container { 
+    .category-container { 
         margin-top: 15%
     }
 }
 
 @media (max-width: 425px) {
-    .sort-container { 
+    .category-container { 
         margin-top: 25%
     }
     
